@@ -13,6 +13,19 @@ This website is optimized for one-click deployment to Vercel:
 3. Set up environment variables (optional)
 4. Deploy!
 
+### 🔧 Deployment Troubleshooting
+
+If you encounter any deployment issues:
+
+1. **Framework Detection**: Vercel should auto-detect Astro. If not, manually set:
+   - Framework Preset: `Astro`
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+
+2. **Alternative Config**: If `vercel.json` causes issues, rename it to `vercel.json.bak` and use the minimal config in `vercel-alternative.json`
+
+3. **Node Version**: Ensure Node.js 18+ is used (set in Vercel dashboard if needed)
+
 ## 🏗️ Local Development
 
 ```bash
