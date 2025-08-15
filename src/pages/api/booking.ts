@@ -3,6 +3,9 @@ import type { APIRoute } from 'astro';
 import { verifyRecaptcha } from '@/lib/recaptcha';
 import { sendBookingFormEmail, type BookingFormData } from '@/lib/email';
 
+// Force this route to be server-side rendered
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     console.log('Booking API called');

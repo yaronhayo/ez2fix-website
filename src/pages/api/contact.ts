@@ -3,6 +3,9 @@ import type { APIRoute } from 'astro';
 import { verifyRecaptcha } from '@/lib/recaptcha';
 import { sendContactFormEmail, type ContactFormData } from '@/lib/email';
 
+// Force this route to be server-side rendered
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
