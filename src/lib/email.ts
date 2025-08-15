@@ -2,8 +2,18 @@
 import { Resend } from 'resend';
 import { serverEnv } from '@/config/env';
 
-// Initialize Resend client
-const resend = new Resend(serverEnv.email.resendApiKey);
+// Initialize Resend client only when needed
+let resendClient: Resend | null = null;
+
+function getResendClient(): Resend {
+  if (!resendClient && serverEnv.email.resendApiKey) {
+    resendClient = new Resend(serverEnv.email.resendApiKey);
+  }
+  if (!resendClient) {
+    throw new Error('Resend API key not configured');
+  }
+  return resendClient;
+}
 
 // Email template interfaces
 export interface ContactFormData {
@@ -77,7 +87,7 @@ export interface SessionTrackingData {
 export async function sendContactFormEmail(data: ContactFormData) {
   try {
     // Email to business owner
-    const businessEmail = await resend.emails.send({
+    const businessEmail = await getResendClient().emails.send({
       from: serverEnv.email.fromEmail,
       to: serverEnv.email.toEmail,
       subject: `New Contact Form Submission - ${data.name}`,
@@ -86,7 +96,7 @@ export async function sendContactFormEmail(data: ContactFormData) {
     });
 
     // Auto-reply to customer
-    const customerEmail = await resend.emails.send({
+    const customerEmail = await getResendClient().emails.send({
       from: serverEnv.email.fromEmail,
       to: data.email,
       subject: 'Thank you for contacting Ez2Fix - We\'ll be in touch soon!',
@@ -111,7 +121,7 @@ export async function sendContactFormEmail(data: ContactFormData) {
 export async function sendBookingFormEmail(data: BookingFormData) {
   try {
     // Email to business owner
-    const businessEmail = await resend.emails.send({
+    const businessEmail = await getResendClient().emails.send({
       from: serverEnv.email.fromEmail,
       to: serverEnv.email.toEmail,
       subject: `New Service Request - ${data.urgency.toUpperCase()} - ${data.name}`,
@@ -120,7 +130,7 @@ export async function sendBookingFormEmail(data: BookingFormData) {
     });
 
     // Auto-reply to customer
-    const customerEmail = await resend.emails.send({
+    const customerEmail = await getResendClient().emails.send({
       from: serverEnv.email.fromEmail,
       to: data.email,
       subject: 'Service Request Received - Ez2Fix Will Contact You Soon',
