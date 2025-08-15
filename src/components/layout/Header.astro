@@ -611,7 +611,7 @@ import Button from '@/components/ui/Button.astro';
   </div>
 </header>
 
-<script>
+<script is:inline>
   document.addEventListener('DOMContentLoaded', function() {
     const mobileMenuButton = document.getElementById('mobile-menu-button');
     const mobileMenu = document.getElementById('mobile-menu');
@@ -636,7 +636,17 @@ import Button from '@/components/ui/Button.astro';
       menuClose: !!menuClose
     });
     
-    if (mobileMenuButton && mobileMenu && menuOpen && menuClose) {
+    if (!mobileMenuButton || !mobileMenu || !menuOpen || !menuClose) {
+      console.error('Mobile menu initialization failed - missing elements:', {
+        mobileMenuButton: !!mobileMenuButton,
+        mobileMenu: !!mobileMenu,
+        menuOpen: !!menuOpen,
+        menuClose: !!menuClose
+      });
+      return;
+    }
+
+    // Initialize mobile menu
       // Toggle mobile menu
       function toggleMobileMenu() {
         console.log('toggleMobileMenu called');
@@ -650,6 +660,8 @@ import Button from '@/components/ui/Button.astro';
           menuOpen.classList.remove('hidden');
           menuClose.classList.add('hidden');
           document.body.classList.remove('overflow-hidden');
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+          mobileMenuButton.setAttribute('aria-label', 'Open navigation menu');
           
           // Also close submenus when main menu closes
           if (mobileServicesSubmenu && mobileServicesArrow) {
@@ -667,16 +679,23 @@ import Button from '@/components/ui/Button.astro';
           menuOpen.classList.add('hidden');
           menuClose.classList.remove('hidden');
           document.body.classList.add('overflow-hidden');
+          mobileMenuButton.setAttribute('aria-expanded', 'true');
+          mobileMenuButton.setAttribute('aria-label', 'Close navigation menu');
         }
         
         console.log('Menu classes after toggle:', mobileMenu.className);
       }
 
-      // Mobile menu button click
-      mobileMenuButton.addEventListener('click', function(e) {
-        console.log('Mobile menu button clicked');
+      // Mobile menu button click - handle both click and touch events
+      function handleMenuButtonTap(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Mobile menu button tapped via:', e.type);
         toggleMobileMenu();
-      });
+      }
+
+      mobileMenuButton.addEventListener('click', handleMenuButtonTap);
+      mobileMenuButton.addEventListener('touchend', handleMenuButtonTap, { passive: false });
       
       // Overlay click to close menu
       if (menuOverlay) {
@@ -751,6 +770,30 @@ import Button from '@/components/ui/Button.astro';
       });
     }
   });
+
+  // Fallback initialization
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileMenu);
+  } else {
+    initMobileMenu();
+  }
+
+  // Additional fallback with timeout
+  setTimeout(initMobileMenu, 100);
+
+  function initMobileMenu() {
+    // Prevent multiple initializations
+    if (window.mobileMenuInitialized) return;
+    
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    if (mobileMenuButton && !mobileMenuButton.hasAttribute('data-initialized')) {
+      mobileMenuButton.setAttribute('data-initialized', 'true');
+      window.mobileMenuInitialized = true;
+      
+      // Re-run the main initialization
+      document.dispatchEvent(new Event('DOMContentLoaded'));
+    }
+  }
 </script>
 
 <style>
@@ -777,6 +820,52 @@ import Button from '@/components/ui/Button.astro';
     .container {
       padding-left: 0.5rem;
       padding-right: 0.5rem;
+    }
+  }
+
+  /* Mobile menu specific styles */
+  @media (max-width: 1023px) {
+    #mobile-menu {
+      /* Ensure menu is properly positioned */
+      position: fixed;
+      top: 64px; /* Adjust based on header height */
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #F3F3E6;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 60;
+    }
+
+    #mobile-menu.show {
+      transform: translateX(0);
+    }
+
+    /* Ensure proper styling for mobile menu button */
+    #mobile-menu-button {
+      min-height: 44px;
+      min-width: 44px;
+      touch-action: manipulation;
+      user-select: none;
+    }
+
+    /* Better visibility for mobile menu overlay */
+    #mobile-menu-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+  }
+
+  /* Responsive header height adjustments */
+  @media (min-width: 640px) and (max-width: 1023px) {
+    #mobile-menu {
+      top: 80px; /* sm:h-20 */
     }
   }
 </style>
