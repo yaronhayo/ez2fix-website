@@ -684,6 +684,8 @@ import Button from '@/components/ui/Button.astro';
         }
         
         console.log('Menu classes after toggle:', mobileMenu.className);
+        console.log('Menu has translate-x-full:', mobileMenu.classList.contains('translate-x-full'));
+        console.log('Menu computed style transform:', window.getComputedStyle(mobileMenu).transform);
       }
 
       // Mobile menu button click - handle both click and touch events
@@ -825,23 +827,6 @@ import Button from '@/components/ui/Button.astro';
 
   /* Mobile menu specific styles */
   @media (max-width: 1023px) {
-    #mobile-menu {
-      /* Ensure menu is properly positioned */
-      position: fixed;
-      top: 64px; /* Adjust based on header height */
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #F3F3E6;
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 60;
-    }
-
-    #mobile-menu.show {
-      transform: translateX(0);
-    }
-
     /* Ensure proper styling for mobile menu button */
     #mobile-menu-button {
       min-height: 44px;
@@ -858,14 +843,12 @@ import Button from '@/components/ui/Button.astro';
       right: 0;
       bottom: 0;
       background: rgba(0, 0, 0, 0.5);
-      z-index: -1;
+      z-index: 10;
     }
-  }
 
-  /* Responsive header height adjustments */
-  @media (min-width: 640px) and (max-width: 1023px) {
-    #mobile-menu {
-      top: 80px; /* sm:h-20 */
+    /* Ensure mobile menu is properly visible when open */
+    #mobile-menu:not(.translate-x-full) {
+      display: block !important;
     }
   }
 </style>

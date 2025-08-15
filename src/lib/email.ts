@@ -6,12 +6,22 @@ import { serverEnv } from '@/config/env';
 let resendClient: Resend | null = null;
 
 function getResendClient(): Resend {
-  if (!resendClient && serverEnv.email.resendApiKey) {
-    resendClient = new Resend(serverEnv.email.resendApiKey);
+  if (!serverEnv.email.resendApiKey) {
+    console.error('Resend API key not found in environment variables');
+    throw new Error('Resend API key not configured - check RESEND_API_KEY environment variable');
   }
+  
   if (!resendClient) {
-    throw new Error('Resend API key not configured');
+    console.log('Initializing Resend client...');
+    try {
+      resendClient = new Resend(serverEnv.email.resendApiKey);
+      console.log('Resend client initialized successfully');
+    } catch (error) {
+      console.error('Failed to initialize Resend client:', error);
+      throw new Error(`Failed to initialize Resend client: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
   }
+  
   return resendClient;
 }
 

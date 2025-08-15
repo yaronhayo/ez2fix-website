@@ -5,7 +5,9 @@ import { sendBookingFormEmail, type BookingFormData } from '@/lib/email';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
+    console.log('Booking API called');
     const body = await request.json();
+    console.log('Request body received:', Object.keys(body));
     
     // Validate required fields
     const { name, email, phone, address, service, urgency, description, recaptchaToken } = body;
@@ -115,14 +117,17 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Send email
+    console.log('Attempting to send booking form email...');
     const emailResult = await sendBookingFormEmail(bookingData);
+    console.log('Email result:', emailResult);
     
     if (!emailResult.success) {
       console.error('Failed to send booking form email:', emailResult.error);
       return new Response(
         JSON.stringify({ 
           success: false, 
-          error: 'Failed to send booking request' 
+          error: `Email service error: ${emailResult.error}`,
+          details: 'Please try again or call us directly.'
         }),
         { 
           status: 500,
@@ -150,7 +155,9 @@ export const POST: APIRoute = async ({ request }) => {
     return new Response(
       JSON.stringify({ 
         success: false, 
-        error: 'Internal server error' 
+        error: 'Internal server error',
+        details: error instanceof Error ? error.message : 'Unknown error',
+        stack: process.env.NODE_ENV === 'development' ? (error instanceof Error ? error.stack : undefined) : undefined
       }),
       { 
         status: 500,
