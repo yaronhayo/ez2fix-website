@@ -131,26 +131,35 @@ export async function sendContactFormEmail(data: ContactFormData) {
 export async function sendBookingFormEmail(data: BookingFormData) {
   try {
     // Email to business owner
-    const businessEmail = await getResendClient().emails.send({
+    const businessEmailData: any = {
       from: serverEnv.email.fromEmail,
       to: serverEnv.email.toEmail,
       subject: `New Service Request - ${data.urgency.toUpperCase()} - ${data.name}`,
       html: generateBookingFormEmailHTML(data),
-      replyTo: data.email,
-    });
+    };
+    
+    // Only add replyTo if email is provided
+    if (data.email && data.email.trim()) {
+      businessEmailData.replyTo = data.email;
+    }
+    
+    const businessEmail = await getResendClient().emails.send(businessEmailData);
 
-    // Auto-reply to customer
-    const customerEmail = await getResendClient().emails.send({
-      from: serverEnv.email.fromEmail,
-      to: data.email,
-      subject: 'Service Request Received - Ez2Fix Will Contact You Soon',
-      html: generateBookingFormAutoReplyHTML(data),
-    });
+    // Auto-reply to customer (only if email provided)
+    let customerEmail = null;
+    if (data.email && data.email.trim()) {
+      customerEmail = await getResendClient().emails.send({
+        from: serverEnv.email.fromEmail,
+        to: data.email,
+        subject: 'Service Request Received - Ez2Fix Will Contact You Soon',
+        html: generateBookingFormAutoReplyHTML(data),
+      });
+    }
 
     return {
       success: true,
       businessEmailId: businessEmail.data?.id,
-      customerEmailId: customerEmail.data?.id,
+      customerEmailId: customerEmail?.data?.id || null,
     };
   } catch (error) {
     console.error('Failed to send booking form email:', error);

@@ -573,7 +573,9 @@ const buttonClasses = {
         }
         
         grecaptcha.ready(function() {
-          grecaptcha.execute(window.RECAPTCHA_SITE_KEY, {action: 'booking_form'}).then(function(token) {
+          const siteKey = window.RECAPTCHA_SITE_KEY || recaptchaKey;
+          console.log('Using reCAPTCHA site key:', siteKey ? 'Found' : 'Missing');
+          grecaptcha.execute(siteKey, {action: 'booking_form'}).then(function(token) {
             console.log('reCAPTCHA token obtained:', token ? 'Yes' : 'No');
             // Prepare form data with address
             const address = `${data.street.trim()}, ${data.city.trim()}, ${data.state || 'NJ'} ${data.zip.trim()}`;
