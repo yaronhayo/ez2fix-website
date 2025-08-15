@@ -1,0 +1,81 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import ContactHeroNew from '@/components/sections/ContactHeroNew.astro';
+import ContactMain from '@/components/sections/ContactMain.astro';
+import CTASection from '@/components/ui/CTASection.astro';
+---
+
+<BaseLayout 
+  title="Contact Ez2Fix Bergen County NJ | Licensed Garage Door Contractor (201) 554-6769"
+  description="Contact Ez2Fix for professional garage door service in Bergen County, NJ. Licensed contractor #13VH13553300 offering free estimates, emergency service & honest pricing. Call (201) 554-6769 or get your free estimate online today!"
+  keywords="contact ez2fix bergen county nj, garage door service contact bergen county, garage door repair phone number nj, ez2fix contact information, garage door contractor bergen county contact, free garage door estimate bergen county, garage door service elmwood park fair lawn clifton contact"
+>
+  <Fragment slot="head">
+    <!-- Contact Page Schema Markup -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "ContactPage",
+      "@id": "https://ez2fix.com/contact#contact",
+      "name": "Contact Ez2Fix Garage Door Services",
+      "description": "Contact Ez2Fix for professional garage door repair and installation services in Bergen County, NJ.",
+      "mainEntity": {
+        "@type": "LocalBusiness",
+        "name": "Ez2Fix Garage Door Services",
+        "telephone": "(201) 554-6769",
+        "email": "ez2fixllc@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Elmwood Park, NJ 07407",
+          "addressLocality": "Elmwood Park",
+          "addressRegion": "NJ",
+          "postalCode": "07407",
+          "addressCountry": "US"
+        },
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "telephone": "+12015546769",
+            "contactType": "customer service",
+            "availableLanguage": "English",
+            "areaServed": [
+              "Bergen County, NJ",
+              "Hudson County, NJ",
+              "Passaic County, NJ",
+              "Essex County, NJ"
+            ]
+          },
+          {
+            "@type": "ContactPoint",
+            "telephone": "+12015546769",
+            "contactType": "emergency",
+            "availableLanguage": "English",
+            "hoursAvailable": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
+              ],
+              "opens": "00:00",
+              "closes": "23:59"
+            }
+          }
+        ]
+      }
+    })} />
+  </Fragment>
+  
+  
+  <!-- Main Content (hidden initially) -->
+
+    <Header />
+    <main id="main-content">
+      <ContactHeroNew />
+      <div class="py-8"></div>
+      <ContactMain />
+      <div class="py-8"></div>
+      <CTASection variant="contact" />
+    </main>
+    <Footer />
+  
+</BaseLayout>

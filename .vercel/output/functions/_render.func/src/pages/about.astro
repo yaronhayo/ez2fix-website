@@ -1,0 +1,68 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import AboutHero from '@/components/sections/AboutHero.astro';
+import AboutMain from '@/components/sections/AboutMain.astro';
+import CTASection from '@/components/ui/CTASection.astro';
+---
+
+<BaseLayout 
+  title="About Ez2Fix Bergen County NJ | Licensed Garage Door Contractor #13VH13553300"
+  description="Meet Ez2Fix, your trusted Bergen County garage door professionals since 2014. Licensed contractor #13VH13553300 with 10+ years experience serving 25+ communities. Professional technicians committed to quality service and customer satisfaction. Call (201) 554-6769!"
+  keywords="about ez2fix bergen county nj, licensed garage door contractor bergen county, garage door company bergen county nj, professional garage door service bergen county, experienced garage door technicians nj, ez2fix garage door services about us, bergen county garage door experts, garage door contractor license 13VH13553300"
+>
+  <Fragment slot="head">
+    <!-- About Page Schema Markup -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "@id": "https://ez2fix.com/about#about",
+      "name": "About Ez2Fix Garage Door Services",
+      "description": "Learn about Ez2Fix, Bergen County's trusted garage door professionals since 2014.",
+      "mainEntity": {
+        "@type": "LocalBusiness",
+        "name": "Ez2Fix Garage Door Services",
+        "foundingDate": "2014",
+        "description": "Professional garage door repair and installation company serving Bergen County and surrounding areas in Northern New Jersey.",
+        "knowsAbout": [
+          "Garage Door Repair",
+          "Garage Door Installation",
+          "Emergency Garage Door Service",
+          "Garage Door Spring Repair",
+          "Garage Door Opener Installation"
+        ],
+        "hasCredential": {
+          "@type": "EducationalOccupationalCredential", 
+          "credentialCategory": "Professional License #13VH13553300",
+          "recognizedBy": {
+            "@type": "Organization",
+            "name": "State of New Jersey"
+          }
+        },
+        "yearsOfOperation": "10+",
+        "numberOfEmployees": "Professional technicians",
+        "serviceArea": [
+          "Bergen County, NJ",
+          "Hudson County, NJ", 
+          "Passaic County, NJ",
+          "Essex County, NJ"
+        ]
+      }
+    })} />
+  </Fragment>
+  
+  
+  <!-- Main Content (hidden initially) -->
+
+    <Header />
+    <main id="main-content">
+      <AboutHero />
+      <div class="py-8"></div>
+      <AboutMain />
+      <div class="py-8"></div>
+      <CTASection variant="about" />
+    </main>
+    <Footer />
+  
+</BaseLayout>

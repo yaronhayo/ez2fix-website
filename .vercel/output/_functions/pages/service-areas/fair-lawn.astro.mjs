@@ -1,0 +1,267 @@
+/* empty css                                   */
+import { f as createComponent, k as renderComponent, r as renderTemplate, l as Fragment, u as unescapeHTML, m as maybeRenderHead, h as addAttribute } from "../../assets/astro/server-Crfne28A.js";
+import "kleur/colors";
+import { $ as $$BaseLayout, s as siteConfig, a as $$Header, b as $$Footer } from "../../assets/Footer-BijWoSSf.js";
+import { $ as $$Card } from "../../assets/Card-BTi5B1xO.js";
+import { $ as $$Button } from "../../assets/Button-Dpcd80cV.js";
+import { $ as $$BookingForm } from "../../assets/BookingForm-BGI2At6P.js";
+import { $ as $$ReviewsCarousel, a as $$FAQComponent } from "../../assets/FAQComponent-DJ0uaaAQ.js";
+import { renderers } from "../../renderers.mjs";
+var __freeze = Object.freeze;
+var __defProp = Object.defineProperty;
+var __template = (cooked, raw) => __freeze(__defProp(cooked, "raw", { value: __freeze(cooked.slice()) }));
+var _a;
+const $$FairLawn = createComponent(($$result, $$props, $$slots) => {
+  const locationData = {
+    city: "Fair Lawn",
+    neighborhoods: [
+      "Radburn Historic District",
+      "Garden Apartments",
+      "Downtown Fair Lawn",
+      "Warren Point",
+      "River Road corridor"
+    ],
+    landmarks: [
+      "Radburn Historic District",
+      "Fair Lawn Recreation Center",
+      "Memorial Pool Complex",
+      "George Washington Bridge vicinity",
+      "Broadway Shopping District"
+    ]
+  };
+  const localServices = [
+    {
+      title: "24/7 Emergency Garage Door Repair",
+      description: "When your garage door breaks at the worst possible moment, our emergency technicians respond fast. We understand that garage door problems don't wait for convenient times, especially during harsh weather.",
+      image: "https://qjvikxuhqs1py0go.public.blob.vercel-storage.com/Garage%20Door%20Repair.webp",
+      features: ["Emergency Service", "Professional Repairs", "All Brands Serviced", "Safety First"],
+      warranty: "1-Year Warranty",
+      popular: true,
+      testimonial: "Called at midnight with a broken door - they were here in an hour and fixed it perfectly!",
+      badge: "24/7 AVAILABLE"
+    },
+    {
+      title: "Garage Door Spring Repair",
+      description: "Broken springs are dangerous and should only be handled by professionals. We safely replace both torsion and extension springs with high-quality parts designed to withstand local weather conditions.",
+      image: "https://qjvikxuhqs1py0go.public.blob.vercel-storage.com/Garage%20Door%20Spring%20Repair.jpg",
+      features: ["High-Cycle Springs", "Professional Tools", "Safety Cables", "Proper Balancing"],
+      warranty: "10-Year Warranty",
+      popular: true,
+      testimonial: "Spring replacement was done quickly and safely. Haven't had any issues since!",
+      badge: "MOST COMMON"
+    },
+    {
+      title: "Garage Door Opener Installation",
+      description: "Upgrade to smart opener technology with WiFi connectivity and battery backup. Perfect for busy families who want the convenience of checking and controlling their garage door from anywhere.",
+      image: "https://qjvikxuhqs1py0go.public.blob.vercel-storage.com/Garage%20Door%20Opener%20Installation.webp",
+      features: ["Smart Technology", "Remote Programming", "Battery Backup", "WiFi Connectivity"],
+      warranty: "15-Year Warranty",
+      popular: false,
+      testimonial: "Love our new smart opener - can check if the door is closed from work!",
+      badge: "SMART HOME"
+    },
+    {
+      title: "New Garage Door Installation",
+      description: "Transform your home's curb appeal with a new garage door that complements your neighborhood's character. From traditional to modern styles, we help you choose the perfect door.",
+      image: "https://qjvikxuhqs1py0go.public.blob.vercel-storage.com/Garage%20Door%20Installation.png",
+      features: ["Energy Efficient", "Style Consultation", "Custom Options", "Professional Install"],
+      warranty: "15-Year Warranty",
+      popular: false,
+      testimonial: "Our new door looks amazing and matches our home's historic character perfectly!",
+      badge: "CURB APPEAL"
+    },
+    {
+      title: "Commercial Garage Door Service",
+      description: "Keep your business running smoothly with reliable commercial garage door service. We handle heavy-duty doors and high-cycle operations for warehouses, retail, and industrial facilities.",
+      image: "https://qjvikxuhqs1py0go.public.blob.vercel-storage.com/commercial-garage-door.jpg",
+      features: ["Heavy Duty Systems", "High-Cycle Springs", "Commercial Grade", "Preventive Plans"],
+      warranty: "Commercial Warranty",
+      popular: false,
+      testimonial: "They keep our warehouse doors running smoothly with reliable maintenance service.",
+      badge: "BUSINESS"
+    },
+    {
+      title: "General Garage Door Repair",
+      description: "From cable repairs to track alignment, we fix all types of garage door problems with professional expertise and quality parts that are built to last.",
+      image: "https://qjvikxuhqs1py0go.public.blob.vercel-storage.com/garage%20door%20repair.png",
+      features: ["All Repairs", "Quality Parts", "Track Alignment", "Cable Replacement"],
+      warranty: "1-Year Warranty",
+      popular: false,
+      testimonial: "They diagnosed and fixed my track alignment issue perfectly. Great service!",
+      badge: "ALL REPAIRS"
+    }
+  ];
+  const localReviews = [
+    {
+      name: "Maria Rodriguez",
+      location: "Radburn, Fair Lawn NJ",
+      rating: 5,
+      text: "Our garage door spring snapped during the winter storm last month. Ez2Fix responded quickly and replaced it with a heavy-duty spring that's been perfect ever since. Professional service and fair pricing.",
+      service: "Spring Replacement"
+    },
+    {
+      name: "David Chen",
+      location: "Warren Point, Fair Lawn NJ",
+      rating: 5,
+      text: "We needed a new garage door that would match our historic home's character. The team helped us choose the perfect style and the installation was flawless. Couldn't be happier!",
+      service: "Door Installation"
+    },
+    {
+      name: "Susan Thompson",
+      location: "Fair Lawn Center, NJ",
+      rating: 5,
+      text: "My opener started acting up and making terrible noises. They diagnosed the problem quickly and had it running like new in no time. Great communication throughout the whole process.",
+      service: "Opener Repair"
+    },
+    {
+      name: "Michael Johnson",
+      location: "Garden Apartments, Fair Lawn NJ",
+      rating: 5,
+      text: "Called with a track alignment problem and they were here within 2 hours. Fixed it perfectly and explained how to prevent it from happening again. Excellent service!",
+      service: "Track Repair"
+    },
+    {
+      name: "Jennifer Walsh",
+      location: "Downtown Fair Lawn, NJ",
+      rating: 5,
+      text: "Emergency service at 11 PM when our door got stuck with the car inside. The technician was professional, fixed it quickly, and didn't charge extra for the late hour. Highly recommend!",
+      service: "Emergency Repair"
+    },
+    {
+      name: "Robert Kim",
+      location: "River Road, Fair Lawn NJ",
+      rating: 5,
+      text: "They installed a smart opener with WiFi and it's been amazing. Now I can check if I forgot to close the garage door from anywhere. Professional installation and great follow-up.",
+      service: "Smart Opener Installation"
+    }
+  ];
+  const localFAQs = [
+    {
+      question: "How quickly can you respond to garage door emergencies in Fair Lawn?",
+      answer: "We typically respond to emergencies within 1-2 hours throughout Bergen County, including all Fair Lawn neighborhoods from Radburn to Warren Point. Our local technicians know the area well and can navigate efficiently to reach you fast."
+    },
+    {
+      question: "Do you service both residential and commercial properties in Fair Lawn?",
+      answer: "Yes, we handle everything from family homes in historic neighborhoods to commercial facilities along the River Road corridor. Our experience ranges from delicate historic home repairs to heavy-duty commercial installations."
+    },
+    {
+      question: "What garage door brands work best for Fair Lawn's local climate?",
+      answer: "We recommend insulated steel doors from LiftMaster, Clopay, and Wayne Dalton for this area. These brands handle New Jersey's humidity and temperature changes well, plus they offer styles that complement both historic and modern neighborhood architecture."
+    },
+    {
+      question: "Do you offer maintenance services to prevent problems?",
+      answer: "Absolutely! Our annual maintenance programs help prevent costly emergency repairs. This is especially valuable in areas with seasonal weather changes - regular maintenance keeps your door running smoothly year-round."
+    },
+    {
+      question: "Are you licensed and insured to work in Fair Lawn?",
+      answer: "Yes, we're fully licensed (License #13VH13553300) and insured to work throughout Bergen County. We comply with all local building codes and municipal regulations."
+    },
+    {
+      question: "What areas do you cover for service calls?",
+      answer: "We serve all of Fair Lawn including Radburn Historic District, Garden Apartments, downtown area, Warren Point, and the River Road corridor, plus surrounding Bergen County communities within a 5-mile radius."
+    }
+  ];
+  return renderTemplate`${renderComponent($$result, "BaseLayout", $$BaseLayout, { "title": "Garage Door Repair Fair Lawn NJ | Ez2Fix | Licensed Contractor #13VH13553300", "description": "Professional garage door repair & installation in Fair Lawn, NJ. Licensed contractor #13VH13553300 serving Radburn Historic District, Warren Point & all Fair Lawn neighborhoods. Same-day service with 10-year warranty. Call (201) 554-6769!", "keywords": "garage door repair fair lawn nj, garage door installation fair lawn, garage door service fair lawn bergen county, garage door spring repair fair lawn nj, garage door opener installation fair lawn, emergency garage door repair fair lawn, licensed garage door contractor fair lawn nj, garage door repair radburn historic district, garage door service warren point fair lawn" }, { "default": ($$result2) => renderTemplate`  ${renderComponent($$result2, "Header", $$Header, {})} ${maybeRenderHead()}<main id="main-content"> <!-- Hero Section: Above the Fold --> <section class="py-12 sm:py-16 lg:py-20" style="background: linear-gradient(135deg, #1D1912 0%, #2A2420 100%);"> <div class="container mx-auto px-4"> <div class="max-w-6xl mx-auto"> <!-- Breadcrumb --> <nav class="flex items-center space-x-2 text-sm mb-8" style="color: #BB8525;"> <a href="/" class="hover:underline">Home</a> <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path> </svg> <a href="/service-areas" class="hover:underline">Service Areas</a> <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path> </svg> <span style="color: #EECD5C;">${locationData.city}</span> </nav> <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center"> <!-- Content --> <div> <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight mb-6" style="color: #F3F3E6;"> <span style="color: #F3F3E6;">Top-Rated Garage Door</span><br> <span style="color: #F3F3E6;">Repair & Installation in</span><br> <span style="color: #D2A63C;">${locationData.city}</span> </h1> <p class="text-lg sm:text-xl leading-relaxed mb-8" style="color: #EECD5C;">
+Fast, reliable service for ${locationData.city} homeowners—tackle seasonal weather challenges and daily wear with our expert team today.
+</p> <!-- Contact CTAs --> <div class="flex flex-col sm:flex-row gap-4 mb-6"> <a${addAttribute(siteConfig.links.phone, "href")} class="inline-flex items-center justify-center px-6 py-3 text-lg font-bold rounded-lg transition-all duration-300 hover:shadow-lg transform hover:scale-105" style="background: linear-gradient(135deg, #D2A63C 0%, #EECD5C 100%); color: #1D1912;"> <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path> </svg>
+Call Now: ${siteConfig.business.phone} </a> </div> <!-- Trust Indicators --> <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center text-sm"> <div> <div class="text-2xl font-bold mb-1" style="color: #D2A63C;">10+</div> <div style="color: #EECD5C;">Years Experience</div> </div> <div> <div class="text-2xl font-bold mb-1" style="color: #D2A63C;">24/7</div> <div style="color: #EECD5C;">Emergency Service</div> </div> <div> <div class="text-2xl font-bold mb-1" style="color: #D2A63C;">5.0★</div> <div style="color: #EECD5C;">Customer Rating</div> </div> <div> <div class="text-2xl font-bold mb-1" style="color: #D2A63C;">Licensed</div> <div style="color: #EECD5C;">& Insured</div> </div> </div> </div> <!-- Free Quote Form --> ${renderComponent($$result2, "Card", $$Card, { "class": "p-6 sm:p-8 shadow-2xl border-2", "style": "background-color: #F3F3E6; border-color: #D2A63C;" }, { "default": ($$result3) => renderTemplate` ${renderComponent($$result3, "BookingForm", $$BookingForm, { "variant": "area-hero", "title": "Free Fair Lawn Quote Form", "subtitle": "", "buttonText": "Get Free Estimate", "location": "Fair Lawn" })} ` })} </div> </div> </div> </section> <!-- Local Authority Section --> <section class="py-8" style="background-color: #F3F3E6;"> <div class="container mx-auto px-4"> <div class="max-w-4xl mx-auto"> <div class="bg-white rounded-xl p-6 shadow-lg border border-opacity-20" style="border-color: #D2A63C;"> <h3 class="font-bold mb-4 text-lg text-center" style="color: #1D1912;">Why ${locationData.city} Homeowners Choose Us</h3> <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm"> <div class="flex items-center space-x-2"> <svg class="h-4 w-4 flex-shrink-0" style="color: #D2A63C;" fill="currentColor" viewBox="0 0 24 24"> <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path> </svg> <span style="color: #1D1912;">Local expertise since 2014</span> </div> <div class="flex items-center space-x-2"> <svg class="h-4 w-4 flex-shrink-0" style="color: #D2A63C;" fill="currentColor" viewBox="0 0 24 24"> <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path> </svg> <span style="color: #1D1912;">Historic home specialists</span> </div> <div class="flex items-center space-x-2"> <svg class="h-4 w-4 flex-shrink-0" style="color: #D2A63C;" fill="currentColor" viewBox="0 0 24 24"> <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path> </svg> <span style="color: #1D1912;">Licensed #13VH13553300</span> </div> <div class="flex items-center space-x-2"> <svg class="h-4 w-4 flex-shrink-0" style="color: #D2A63C;" fill="currentColor" viewBox="0 0 24 24"> <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path> </svg> <span style="color: #1D1912;">24/7 emergency service</span> </div> </div> </div> </div> </div> </section> <!-- The Problem Section: We Understand Your Unique Challenges --> <section class="py-12 md:py-16" style="background-color: #F3F3E6;"> <div class="container mx-auto px-4"> <div class="max-w-4xl mx-auto"> <div class="text-center mb-12"> <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: #1D1912;">
+We Understand <span style="color: #D2A63C;">${locationData.city}'s Unique Garage Door Challenges</span> </h2> <p class="text-xl leading-relaxed" style="color: #BB8525;">
+From frequent rain causing rust and opener failures to high-traffic areas leading to quicker spring breaks and alignment problems.
+</p> </div> <div class="grid md:grid-cols-2 gap-8"> <div class="space-y-4"> <div class="flex items-start space-x-3"> <div class="w-2 h-2 rounded-full mt-3 flex-shrink-0" style="background-color: #D2A63C;"></div> <div> <h4 class="font-semibold mb-2" style="color: #1D1912;">Seasonal Weather Damage</h4> <p class="text-sm" style="color: #BB8525;">New Jersey's harsh winters and humid summers cause rust, warping, and mechanical failures in garage door systems.</p> </div> </div> <div class="flex items-start space-x-3"> <div class="w-2 h-2 rounded-full mt-3 flex-shrink-0" style="background-color: #EECD5C;"></div> <div> <h4 class="font-semibold mb-2" style="color: #1D1912;">Historic Home Compatibility</h4> <p class="text-sm" style="color: #BB8525;">Older homes need special attention to ensure new systems work properly with existing structures and wiring.</p> </div> </div> </div> <div class="space-y-4"> <div class="flex items-start space-x-3"> <div class="w-2 h-2 rounded-full mt-3 flex-shrink-0" style="background-color: #BB8525;"></div> <div> <h4 class="font-semibold mb-2" style="color: #1D1912;">Security Concerns</h4> <p class="text-sm" style="color: #BB8525;">A malfunctioning garage door leaves your home vulnerable to break-ins and exposes your family to safety risks.</p> </div> </div> <div class="flex items-start space-x-3"> <div class="w-2 h-2 rounded-full mt-3 flex-shrink-0" style="background-color: #D2A63C;"></div> <div> <h4 class="font-semibold mb-2" style="color: #1D1912;">Aging Infrastructure</h4> <p class="text-sm" style="color: #BB8525;">Aging homes with outdated doors reduce curb appeal and energy efficiency, impacting your property value.</p> </div> </div> </div> </div> <div class="text-center mt-8 p-6 rounded-lg" style="background: rgba(210, 166, 60, 0.1);"> <p class="text-lg italic" style="color: #1D1912;">
+"Living in ${locationData.city} means enjoying vibrant community life, but it also brings garage door challenges like seasonal wear and historic home requirements. Imagine never worrying about that again—we make it happen."
+</p> </div> </div> </div> </section> <!-- Services Section: Our Simple Plan --> <section class="py-12 md:py-16" style="background-color: #1D1912;"> <div class="container mx-auto px-4"> <div class="max-w-6xl mx-auto"> <div class="text-center mb-12 md:mb-16"> <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6" style="color: #F3F3E6;">
+Our Simple Plan for <span style="color: #D2A63C;">${locationData.city} Garage Door Success</span> </h2> <p class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mb-8 md:mb-12" style="color: #EECD5C;">
+Tailored to fit your busy ${locationData.city} lifestyle.
+</p> <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"> ${localServices.map((service, index) => renderTemplate`${renderComponent($$result2, "Card", $$Card, { "class": "relative overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border-2 group", "style": service.popular ? "border-color: #D2A63C; box-shadow: 0 0 20px rgba(210, 166, 60, 0.3);" : "border-color: #BB8525;" }, { "default": ($$result3) => renderTemplate`  <div class="relative h-48 overflow-hidden"> <img${addAttribute(service.image, "src")}${addAttribute(service.title, "alt")} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"> <!-- Image Overlay --> <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div> <!-- Badge --> <div class="absolute top-4 left-4"> <div class="px-3 py-1 text-xs font-bold rounded-full shadow-lg"${addAttribute(service.popular ? "background: linear-gradient(135deg, #D2A63C 0%, #EECD5C 100%); color: #1D1912;" : "background-color: #BB8525; color: #F3F3E6;", "style")}> ${service.badge} </div> </div> </div> <div class="p-6"> <!-- Service Header --> <div class="mb-4"> <a${addAttribute(service.title === "24/7 Emergency Garage Door Repair" ? "/services/emergency-garage-door-repair" : service.title === "Garage Door Spring Repair" ? "/services/garage-door-spring-repair" : service.title === "Garage Door Opener Installation" ? "/services/garage-door-opener-installation" : service.title === "New Garage Door Installation" ? "/services/new-garage-door-installation" : service.title === "Commercial Garage Door Service" ? "/services/commercial-garage-door-service" : service.title === "General Garage Door Repair" ? "/services/general-garage-door-repair" : "/services", "href")} class="hover:underline"> <h3 class="text-xl font-bold mb-2 line-clamp-2" style="color: #F3F3E6;">${service.title}</h3> </a> <p class="text-sm leading-relaxed mb-3 line-clamp-3" style="color: #EECD5C;">${service.description}</p> </div> <!-- Service Features --> <div class="mb-4"> <div class="grid grid-cols-2 gap-2"> ${service.features.map((feature) => renderTemplate`<div class="flex items-center space-x-2 text-xs"> <svg class="h-3 w-3 flex-shrink-0" style="color: #D2A63C;" fill="currentColor" viewBox="0 0 24 24"> <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path> </svg> <span style="color: #F3F3E6;">${feature}</span> </div>`)} </div> </div> <!-- Service Info Bar --> <div class="flex justify-center items-center mb-4 p-3 rounded-lg" style="background-color: rgba(238, 205, 92, 0.1);"> <div class="text-center"> <div class="text-xs font-semibold" style="color: #F3F3E6;">Warranty</div> <div class="text-xs" style="color: #EECD5C;">${service.warranty}</div> </div> </div> <!-- Customer Testimonial --> <div class="p-3 rounded-lg mb-4 border-l-3" style="background-color: rgba(238, 205, 92, 0.1); border-color: #EECD5C;"> <p class="text-xs italic leading-relaxed mb-2" style="color: #F3F3E6;">"${service.testimonial}"</p> <div class="flex items-center"> ${[1, 2, 3, 4, 5].map(() => renderTemplate`<svg class="h-3 w-3" style="color: #D2A63C;" fill="currentColor" viewBox="0 0 24 24"> <path d="M12 .587l3.668 7.431 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"></path> </svg>`)} <span class="text-xs font-medium ml-2" style="color: #EECD5C;">Verified Review</span> </div> </div> <!-- CTA Buttons --> <div class="space-y-3"> ${renderComponent($$result3, "Button", $$Button, { "href": siteConfig.links.phone, "class": "w-full text-sm font-bold transition-all duration-300 hover:shadow-lg transform hover:scale-105", "style": service.popular ? "background: linear-gradient(135deg, #D2A63C 0%, #EECD5C 100%); color: #1D1912;" : "background-color: #D2A63C; color: #F3F3E6;" }, { "default": ($$result4) => renderTemplate`
+Call Now
+` })} ${renderComponent($$result3, "Button", $$Button, { "href": "/booking", "class": "w-full text-sm font-semibold border-2 transition-all duration-300 hover:shadow-md", "style": "color: #EECD5C; border-color: #EECD5C; background-color: transparent;" }, { "default": ($$result4) => renderTemplate`
+Get Quote
+` })} </div> </div> ` })}`)} </div> </div> </div> </div> </section> <!-- Reviews Section: Join Satisfied Neighbors --> <section class="py-12 md:py-16" style="background-color: #F3F3E6;"> <div class="container mx-auto px-4"> <div class="max-w-6xl mx-auto"> <div class="text-center mb-12"> <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: #1D1912;">
+Join Satisfied <span style="color: #D2A63C;">${locationData.city} Neighbors</span> with Doors That Work Flawlessly
+</h2> <p class="text-xl max-w-3xl mx-auto" style="color: #BB8525;">
+Don't just take our word for it. Here's what your neighbors throughout the area are saying about our garage door services.
+</p> </div> ${renderComponent($$result2, "ReviewsCarousel", $$ReviewsCarousel, { "reviews": localReviews })} </div> </div> </section> <!-- The Guide Section: Your Local Garage Door Specialists --> <section class="py-16" style="background-color: #1D1912;"> <div class="container mx-auto px-4"> <div class="max-w-6xl mx-auto"> <div class="text-center mb-12"> <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: #F3F3E6;">
+Your <span style="color: #D2A63C;">${locationData.city}</span> Garage Door Specialists
+</h2> <p class="text-xl leading-relaxed max-w-3xl mx-auto mb-8" style="color: #EECD5C;">
+We're embedded in ${locationData.city}, with quick response times from our nearby base. Our pros handle everything from emergency fixes to modern installations suited to local architecture and climate.
+</p> </div> <!-- Neighborhoods We Serve --> <div class="grid md:grid-cols-2 gap-8 mb-12"> ${renderComponent($$result2, "Card", $$Card, { "class": "p-6 border-2", "style": "background-color: #F3F3E6; border-color: #D2A63C;" }, { "default": ($$result3) => renderTemplate` <h3 class="text-2xl font-bold mb-4" style="color: #1D1912;"> <span style="color: #D2A63C;">Neighborhoods</span> We Serve
+</h3> <div class="grid grid-cols-1 gap-3"> ${locationData.neighborhoods.map((neighborhood) => renderTemplate`<div class="flex items-center space-x-2"> <svg class="h-4 w-4 flex-shrink-0" style="color: #D2A63C;" fill="currentColor" viewBox="0 0 24 24"> <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path> </svg> <span class="text-sm" style="color: #1D1912;">${neighborhood}</span> </div>`)} </div> ` })} ${renderComponent($$result2, "Card", $$Card, { "class": "p-6 border-2", "style": "background-color: #F3F3E6; border-color: #EECD5C;" }, { "default": ($$result3) => renderTemplate` <h3 class="text-2xl font-bold mb-4" style="color: #1D1912;"> <span style="color: #D2A63C;">Local Landmarks</span> We Know
+</h3> <div class="space-y-2"> ${locationData.landmarks.map((landmark) => renderTemplate`<div class="flex items-center space-x-2"> <svg class="h-4 w-4 flex-shrink-0" style="color: #EECD5C;" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path> </svg> <span class="text-sm" style="color: #1D1912;">${landmark}</span> </div>`)} </div> ` })} </div> </div> </div> </section> <!-- FAQ Section: Address Objections --> <section class="py-12 md:py-16" style="background-color: #F3F3E6;"> <div class="container mx-auto px-4"> ${renderComponent($$result2, "FAQComponent", $$FAQComponent, { "faqs": localFAQs, "city": locationData.city, "title": `Got Questions About <span style="color: #D2A63C;">Garage Door Repair</span> in ${locationData.city}?`, "subtitle": "We believe in transparency. Here are answers to questions homeowners frequently ask about our garage door services." })} </div> </section> <!-- Final CTA Section: Get Started Now --> <section class="py-16" style="background: linear-gradient(135deg, #D2A63C 0%, #EECD5C 100%);"> <div class="container mx-auto px-4"> <div class="max-w-4xl mx-auto text-center"> <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: #1D1912;">
+Get Started in ${locationData.city} Now
+</h2> <p class="text-xl mb-8" style="color: #1D1912;">
+Same-day service available—let's fix your garage door.
+</p> <!-- Contact Options --> <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8"> <a${addAttribute(siteConfig.links.phone, "href")} class="inline-flex items-center justify-center px-8 py-4 text-xl font-bold rounded-lg transition-all duration-300 hover:shadow-lg transform hover:scale-105" style="background-color: #1D1912; color: #F3F3E6;"> <svg class="mr-3 h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path> </svg>
+Call Now
+</a> <a href="/booking" class="inline-flex items-center justify-center px-8 py-4 text-xl font-bold border-2 rounded-lg transition-all duration-300 hover:shadow-lg transform hover:scale-105" style="color: #1D1912; border-color: #1D1912; background-color: transparent;">
+Get Free Quote
+</a> </div> <!-- Trust Indicators --> <div class="flex items-center justify-center space-x-8 text-sm font-semibold"> <div class="flex items-center space-x-2"> <svg class="h-5 w-5" style="color: #1D1912;" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path> </svg> <span style="color: #1D1912;">Licensed & Insured</span> </div> <div class="flex items-center space-x-2"> <svg class="h-5 w-5" style="color: #1D1912;" fill="currentColor" viewBox="0 0 24 24"> <path d="M12 .587l3.668 7.431 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"></path> </svg> <span style="color: #1D1912;">10-Year Warranty</span> </div> <div class="flex items-center space-x-2"> <svg class="h-5 w-5" style="color: #1D1912;" fill="none" stroke="currentColor" viewBox="0 0 24 24"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path> </svg> <span style="color: #1D1912;">24/7 Emergency Service</span> </div> </div> </div> </div> </section> </main> ${renderComponent($$result2, "Footer", $$Footer, {})} `, "head": ($$result2) => renderTemplate`${renderComponent($$result2, "Fragment", Fragment, { "slot": "head" }, { "default": ($$result3) => renderTemplate(_a || (_a = __template(['  <script type="application/ld+json">', "<\/script> "])), unescapeHTML(JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://ez2fix.com/service-areas/fair-lawn#fairlawn",
+    "name": "Ez2Fix Garage Door Services - Fair Lawn",
+    "description": "Professional garage door repair and installation serving Fair Lawn, NJ including Radburn Historic District and Warren Point neighborhoods.",
+    "url": "https://ez2fix.com/service-areas/fair-lawn",
+    "telephone": "(201) 554-6769",
+    "areaServed": {
+      "@type": "City",
+      "name": "Fair Lawn",
+      "containedInPlace": {
+        "@type": "AdministrativeArea",
+        "name": "Bergen County, New Jersey",
+        "containedInPlace": {
+          "@type": "State",
+          "name": "New Jersey",
+          "address": {
+            "@type": "PostalAddress",
+            "addressRegion": "NJ",
+            "addressCountry": "US"
+          }
+        }
+      }
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "40.9401",
+      "longitude": "-74.1318"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Fair Lawn Garage Door Services",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Garage Door Repair Fair Lawn",
+            "description": "Professional garage door repair service in Fair Lawn, NJ"
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Fair Lawn, NJ"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Emergency Garage Door Service Fair Lawn",
+            "description": "24/7 emergency garage door repair in Fair Lawn neighborhoods"
+          }
+        }
+      ]
+    }
+  }))) })}` })}`;
+}, "/Users/yaronhayo/Dev_Projects/Projects_2025/ez2fixV2/ez2fix-production/src/pages/service-areas/fair-lawn.astro", void 0);
+const $$file = "/Users/yaronhayo/Dev_Projects/Projects_2025/ez2fixV2/ez2fix-production/src/pages/service-areas/fair-lawn.astro";
+const $$url = "/service-areas/fair-lawn";
+const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  __proto__: null,
+  default: $$FairLawn,
+  file: $$file,
+  url: $$url
+}, Symbol.toStringTag, { value: "Module" }));
+const page = () => _page;
+export {
+  page,
+  renderers
+};

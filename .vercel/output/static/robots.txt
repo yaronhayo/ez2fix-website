@@ -1,0 +1,51 @@
+User-agent: *
+Allow: /
+
+# Important pages for crawling - High priority SEO pages
+Allow: /services/
+Allow: /service-areas/
+Allow: /booking
+Allow: /contact
+Allow: /faq
+Allow: /about
+Allow: /reviews
+
+# Individual service pages
+Allow: /services/emergency-garage-door-repair
+Allow: /services/garage-door-spring-repair
+Allow: /services/garage-door-opener-installation
+Allow: /services/new-garage-door-installation
+Allow: /services/commercial-garage-door-service
+Allow: /services/general-garage-door-repair
+
+# Featured service area pages
+Allow: /service-areas/fair-lawn
+Allow: /service-areas/clifton
+Allow: /service-areas/little-falls
+Allow: /service-areas/cedar-grove
+Allow: /service-areas/west-caldwell
+Allow: /service-areas/north-caldwell
+Allow: /service-areas/montclair
+
+# Sitemap location
+Sitemap: https://ez2fix.com/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Block admin and development files
+Disallow: /admin/
+Disallow: /_astro/
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /dist/
+
+# Allow social media crawlers full access
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot  
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
