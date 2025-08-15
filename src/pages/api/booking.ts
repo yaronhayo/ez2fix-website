@@ -6,8 +6,27 @@ import { sendBookingFormEmail, type BookingFormData } from '@/lib/email';
 export const POST: APIRoute = async ({ request }) => {
   try {
     console.log('Booking API called');
-    const body = await request.json();
-    console.log('Request body received:', Object.keys(body));
+    console.log('Request headers:', Object.fromEntries(request.headers.entries()));
+    
+    let body;
+    try {
+      body = await request.json();
+      console.log('Request body received:', Object.keys(body));
+      console.log('Full body data:', body);
+    } catch (jsonError) {
+      console.error('Failed to parse JSON body:', jsonError);
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          error: 'Invalid JSON in request body',
+          details: jsonError instanceof Error ? jsonError.message : 'Unknown JSON parsing error'
+        }),
+        { 
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
     
     // Validate required fields
     const { name, email, phone, address, service, urgency, description, recaptchaToken } = body;
