@@ -326,7 +326,7 @@ import Button from '@/components/ui/Button.astro';
   <!-- Mobile Navigation Menu -->
   <div 
     id="mobile-menu" 
-    class="lg:hidden fixed inset-0 top-16 sm:top-20 z-[60] transform translate-x-full transition-transform duration-300 ease-in-out"
+    class="lg:hidden fixed top-16 sm:top-20 left-0 w-full h-screen z-[60] transform translate-x-full transition-transform duration-300 ease-in-out"
     style="background-color: #F3F3E6;"
   >
     <div class="h-full overflow-y-auto">
@@ -656,7 +656,7 @@ import Button from '@/components/ui/Button.astro';
       console.log('Menu is currently:', isOpen ? 'open' : 'closed');
       
       if (isOpen) {
-        // Close menu
+        // Close menu - slide it off-screen to the right
         console.log('Closing menu');
         mobileMenu.classList.add('translate-x-full');
         menuOpen.classList.remove('hidden');
@@ -675,7 +675,7 @@ import Button from '@/components/ui/Button.astro';
           mobileAreasArrow.classList.remove('rotate-180');
         }
       } else {
-        // Open menu
+        // Open menu - remove translate-x-full to bring it on-screen
         console.log('Opening menu');
         mobileMenu.classList.remove('translate-x-full');
         menuOpen.classList.add('hidden');
@@ -688,6 +688,7 @@ import Button from '@/components/ui/Button.astro';
       console.log('Menu classes after toggle:', mobileMenu.className);
       console.log('Menu has translate-x-full:', mobileMenu.classList.contains('translate-x-full'));
       console.log('Menu computed style transform:', window.getComputedStyle(mobileMenu).transform);
+      console.log('Menu should be:', mobileMenu.classList.contains('translate-x-full') ? 'OFF-SCREEN' : 'VISIBLE');
     }
 
     // Mobile menu button click handler
@@ -825,6 +826,35 @@ import Button from '@/components/ui/Button.astro';
       user-select: none;
     }
 
+    /* Mobile menu positioning and visibility */
+    #mobile-menu {
+      position: fixed;
+      top: 4rem; /* 16 on mobile */
+      left: 0;
+      width: 100vw;
+      height: calc(100vh - 4rem);
+      z-index: 60;
+      background-color: #F3F3E6;
+      transition: transform 300ms ease-in-out;
+    }
+    
+    @media (min-width: 640px) {
+      #mobile-menu {
+        top: 5rem; /* 20 on sm screens */
+        height: calc(100vh - 5rem);
+      }
+    }
+
+    /* Hidden state - off screen to the right */
+    #mobile-menu.translate-x-full {
+      transform: translateX(100%);
+    }
+
+    /* Visible state - on screen */
+    #mobile-menu:not(.translate-x-full) {
+      transform: translateX(0);
+    }
+
     /* Better visibility for mobile menu overlay */
     #mobile-menu-overlay {
       position: absolute;
@@ -834,11 +864,6 @@ import Button from '@/components/ui/Button.astro';
       bottom: 0;
       background: rgba(0, 0, 0, 0.5);
       z-index: 10;
-    }
-
-    /* Ensure mobile menu is properly visible when open */
-    #mobile-menu:not(.translate-x-full) {
-      display: block !important;
     }
   }
 </style>

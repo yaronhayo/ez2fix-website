@@ -11,6 +11,13 @@ export const POST: APIRoute = async ({ request }) => {
     console.log('Booking API called');
     console.log('Request headers:', Object.fromEntries(request.headers.entries()));
     
+    // Debug environment variables
+    console.log('Environment check:');
+    console.log('- RESEND_API_KEY exists:', !!process.env.RESEND_API_KEY);
+    console.log('- RECAPTCHA_SECRET_KEY exists:', !!process.env.RECAPTCHA_SECRET_KEY);
+    console.log('- FROM_EMAIL exists:', !!process.env.FROM_EMAIL);
+    console.log('- TO_EMAIL exists:', !!process.env.TO_EMAIL);
+    
     let body;
     try {
       body = await request.json();
@@ -47,18 +54,35 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    // Verify reCAPTCHA
-    const recaptchaResult = await verifyRecaptcha(recaptchaToken, 'booking_form');
-    
-    if (!recaptchaResult.success) {
+    // Verify reCAPTCHA - temporarily disabled for debugging
+    console.log('Verifying reCAPTCHA token...');
+    try {
+      const recaptchaResult = await verifyRecaptcha(recaptchaToken, 'booking_form');
+      console.log('reCAPTCHA result:', recaptchaResult);
+      
+      if (!recaptchaResult.success) {
+        return new Response(
+          JSON.stringify({ 
+            success: false, 
+            error: 'reCAPTCHA verification failed',
+            details: recaptchaResult.error
+          }),
+          { 
+            status: 400,
+            headers: { 'Content-Type': 'application/json' }
+          }
+        );
+      }
+    } catch (recaptchaError) {
+      console.error('reCAPTCHA verification error:', recaptchaError);
       return new Response(
         JSON.stringify({ 
           success: false, 
           error: 'reCAPTCHA verification failed',
-          details: recaptchaResult.error
+          details: recaptchaError instanceof Error ? recaptchaError.message : 'Unknown reCAPTCHA error'
         }),
         { 
-          status: 400,
+          status: 500,
           headers: { 'Content-Type': 'application/json' }
         }
       );
@@ -140,16 +164,31 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Send email
     console.log('Attempting to send booking form email...');
-    const emailResult = await sendBookingFormEmail(bookingData);
-    console.log('Email result:', emailResult);
-    
-    if (!emailResult.success) {
-      console.error('Failed to send booking form email:', emailResult.error);
+    try {
+      const emailResult = await sendBookingFormEmail(bookingData);
+      console.log('Email result:', emailResult);
+      
+      if (!emailResult.success) {
+        console.error('Failed to send booking form email:', emailResult.error);
+        return new Response(
+          JSON.stringify({ 
+            success: false, 
+            error: `Email service error: ${emailResult.error}`,
+            details: 'Please try again or call us directly.'
+          }),
+          { 
+            status: 500,
+            headers: { 'Content-Type': 'application/json' }
+          }
+        );
+      }
+    } catch (emailError) {
+      console.error('Email sending error:', emailError);
       return new Response(
         JSON.stringify({ 
           success: false, 
-          error: `Email service error: ${emailResult.error}`,
-          details: 'Please try again or call us directly.'
+          error: 'Email service error',
+          details: emailError instanceof Error ? emailError.message : 'Unknown email error'
         }),
         { 
           status: 500,
