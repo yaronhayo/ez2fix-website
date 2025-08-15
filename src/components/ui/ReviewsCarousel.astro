@@ -1,0 +1,375 @@
+---
+export interface Props {
+  pageType?: 'homepage' | 'about' | 'contact' | 'services';
+  reviews?: Array<{
+    name: string;
+    location: string;
+    rating: number;
+    text: string;
+    service: string;
+  }>;
+}
+
+const { pageType = 'homepage', reviews } = Astro.props;
+
+// Default reviews for homepage - diverse services and locations
+const homepageReviews = [
+  {
+    name: "Maria Rodriguez",
+    location: "Elmwood Park, NJ",
+    rating: 5,
+    text: "Called Ez2Fix when my garage door spring broke. They were professional from the first phone call to the final cleanup. The technician explained everything and the repair was completed beautifully.",
+    service: "Spring Replacement"
+  },
+  {
+    name: "David Chen", 
+    location: "Jersey City, NJ",
+    rating: 5,
+    text: "Excellent customer service! They responded to my inquiry quickly and scheduled a convenient appointment. The work was done professionally and I highly recommend their services.",
+    service: "Door Installation"
+  },
+  {
+    name: "Susan Thompson",
+    location: "Fair Lawn, NJ", 
+    rating: 5,
+    text: "Ez2Fix made the whole process so easy. From the initial phone call to scheduling and completing the repair, everything went smoothly. Very satisfied with their professional service.",
+    service: "Opener Repair"
+  },
+  {
+    name: "Michael Johnson",
+    location: "Garfield, NJ",
+    rating: 5,
+    text: "Great experience working with Ez2Fix. They were honest about what needed to be fixed and provided excellent service. The garage door works perfectly now and I feel confident in their work.",
+    service: "Track Repair"
+  },
+  {
+    name: "Jennifer Walsh",
+    location: "Hoboken, NJ",
+    rating: 5,
+    text: "Professional service from start to finish. The technician arrived on time, diagnosed the problem quickly, and fixed my garage door opener perfectly. Will definitely call them again.",
+    service: "Opener Service"
+  },
+  {
+    name: "Robert Kim",
+    location: "Wood-Ridge, NJ",
+    rating: 5,
+    text: "Outstanding service! My garage door was making terrible noises and wouldn't open properly. Ez2Fix fixed it professionally and it's been working perfectly ever since. Highly recommend!",
+    service: "Maintenance"
+  },
+  {
+    name: "Lisa Martinez",
+    location: "Union City, NJ",
+    rating: 5,
+    text: "After calling three other companies, Ez2Fix was the only one to show up on time and provide honest service. Their technician was knowledgeable and the repair work was excellent.",
+    service: "Emergency Repair"
+  },
+  {
+    name: "Kevin O'Brien",
+    location: "Weehawken, NJ",
+    rating: 5,
+    text: "Ez2Fix installed our new garage door and it looks amazing! The installation team was professional, clean, and efficient. Great value for the quality of work they provide.",
+    service: "Door Installation"
+  },
+  {
+    name: "Rachel Singh",
+    location: "North Bergen, NJ",
+    rating: 5,
+    text: "My garage door opener failed and Ez2Fix had a technician out the same day. Quick diagnosis and quality repair work. Very impressed with their professional service.",
+    service: "Opener Repair"
+  },
+  {
+    name: "Tony Russo",
+    location: "Bayonne, NJ",
+    rating: 5,
+    text: "Been using Ez2Fix for maintenance on both my residential and commercial properties. Always reliable, professional, and their work is guaranteed. Highly recommend!",
+    service: "Maintenance"
+  },
+  {
+    name: "Amanda Foster",
+    location: "West New York, NJ",
+    rating: 5,
+    text: "Garage door spring snapped at 9 PM and Ez2Fix actually answered their emergency line! Technician came out the same night and fixed it perfectly. Amazing 24/7 service!",
+    service: "Emergency Service"
+  },
+  {
+    name: "James Wilson",
+    location: "Kearny, NJ",
+    rating: 5,
+    text: "Ez2Fix completely transformed my old, noisy garage door. New springs, opener, and maintenance service. Everything works like new and the service was excellent.",
+    service: "Full Service"
+  }
+];
+
+// About page reviews - focus on trust and reliability
+const aboutReviews = [
+  {
+    name: "Sarah Mitchell",
+    location: "Saddle Brook, NJ",
+    rating: 5,
+    text: "Three years ago, Ez2Fix installed our new garage door. Last month, a small part needed adjustment. They came out at no charge, fixed it perfectly, and reminded us why we chose them originally.",
+    service: "Installation & Service"
+  },
+  {
+    name: "Michael Rivera",
+    location: "Elmwood Park, NJ",
+    rating: 5,
+    text: "I called three companies for service. Two tried to sell me expensive extras I didn't need. Ez2Fix gave me exactly what I asked for. No pressure, no surprises – just honest professional service.",
+    service: "Spring Replacement"
+  },
+  {
+    name: "Linda Foster",
+    location: "Fair Lawn, NJ",
+    rating: 5,
+    text: "Ez2Fix has been our go-to for garage door service for over 5 years. They're reliable, honest, and always do excellent work. It's rare to find a company you can trust completely.",
+    service: "Regular Maintenance"
+  }
+];
+
+// Services page reviews - focus on specific service quality
+const servicesReviews = [
+  {
+    name: "Tom Anderson",
+    location: "Garfield, NJ",
+    rating: 5,
+    text: "My garage door spring snapped and Ez2Fix replaced it the same day. The technician was knowledgeable, professional, and cleaned up everything perfectly. Excellent repair service!",
+    service: "Spring Replacement"
+  },
+  {
+    name: "Amanda Clark",
+    location: "Lodi, NJ",
+    rating: 5,
+    text: "Needed a new garage door opener and Ez2Fix delivered outstanding service. They explained all my options, installed the new opener perfectly, and programmed all my remotes. Great work!",
+    service: "Opener Installation"
+  },
+  {
+    name: "Carlos Santos",
+    location: "Hasbrouck Heights, NJ",
+    rating: 5,
+    text: "Professional installation of our new garage door. The team was courteous, efficient, and the door looks amazing. Definitely increased our home's curb appeal. Highly recommend!",
+    service: "Door Installation"
+  }
+];
+
+// Contact page reviews - focus on customer service experience
+const contactReviews = [
+  {
+    name: "Patricia Wong",
+    location: "Rutherford, NJ",
+    rating: 5,
+    text: "From my first phone call to Ez2Fix, I knew I was dealing with professionals. They scheduled me quickly, arrived on time, and fixed my garage door perfectly. Outstanding customer service!",
+    service: "Repair Service"
+  },
+  {
+    name: "James Miller",
+    location: "Little Ferry, NJ",
+    rating: 5,
+    text: "Called Ez2Fix for an urgent garage door problem. They responded quickly, provided clear communication throughout, and solved the issue professionally. Couldn't ask for better service!",
+    service: "Emergency Repair"
+  },
+  {
+    name: "Nicole Davis",
+    location: "Carlstadt, NJ",
+    rating: 5,
+    text: "Ez2Fix made getting my garage door fixed so easy. Their customer service was excellent, the technician was professional, and the repair was completed perfectly. Very impressed!",
+    service: "Door Repair"
+  }
+];
+
+// Select appropriate reviews based on page type
+let displayReviews = reviews;
+if (!displayReviews) {
+  switch (pageType) {
+    case 'about':
+      displayReviews = aboutReviews;
+      break;
+    case 'services':
+      displayReviews = servicesReviews;
+      break;
+    case 'contact':
+      displayReviews = contactReviews;
+      break;
+    default:
+      displayReviews = homepageReviews;
+  }
+}
+---
+
+<div class="reviews-carousel relative overflow-hidden">
+  <!-- Reviews Container -->
+  <div class="reviews-track flex transition-transform duration-700 ease-in-out">
+    {displayReviews.map((review, index) => (
+      <div class="review-slide min-w-full sm:min-w-1/2 lg:min-w-1/3 px-2 sm:px-3" data-index={index}>
+        <div class="p-4 sm:p-5 md:p-6 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 border-2 mx-auto max-w-sm" style="background-color: #F3F3E6; border-color: #EECD5C;">
+          <!-- Stars -->
+          <div class="flex justify-center mb-4 sm:mb-6">
+            {[1,2,3,4,5].map(() => (
+              <svg class="h-5 w-5 sm:h-6 sm:w-6" style="color: #D2A63C;" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 .587l3.668 7.431 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/>
+              </svg>
+            ))}
+          </div>
+          
+          <!-- Quote -->
+          <blockquote class="text-base sm:text-lg leading-relaxed mb-4 sm:mb-6 text-center italic" style="color: #1D1912;">
+            "{review.text}"
+          </blockquote>
+          
+          <!-- Customer Info -->
+          <div class="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4">
+            <!-- Avatar -->
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-bold text-base sm:text-lg" style="background-color: #D2A63C; color: #F3F3E6;">
+              {review.name.split(' ').map(n => n[0]).join('')}
+            </div>
+            
+            <div class="text-center">
+              <div class="font-semibold text-base sm:text-lg" style="color: #1D1912;">{review.name}</div>
+              <div class="text-xs sm:text-sm" style="color: #BB8525;">{review.location}</div>
+              <div class="text-xs font-medium px-2 py-1 rounded-full mt-1" style="background-color: #EECD5C; color: #1D1912;">
+                {review.service}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+  
+  <!-- Navigation Dots -->
+  <div class="flex justify-center space-x-2 mt-8">
+    {displayReviews.map((_, index) => (
+      <button 
+        class="carousel-dot w-3 h-3 rounded-full transition-all duration-300 hover:scale-110"
+        style="background-color: #BB8525;"
+        data-index={index}
+        aria-label={`Go to review ${index + 1}`}
+      ></button>
+    ))}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const carousels = document.querySelectorAll('.reviews-carousel');
+    
+    carousels.forEach(carousel => {
+      const track = carousel.querySelector('.reviews-track');
+      const slides = carousel.querySelectorAll('.review-slide');
+      const dots = carousel.querySelectorAll('.carousel-dot');
+      
+      if (!track || slides.length === 0) return;
+      
+      let currentIndex = 0;
+      let autoplayInterval;
+      let slidesPerView = 1;
+      
+      // Calculate slides per view based on screen size
+      function calculateSlidesPerView() {
+        const width = window.innerWidth;
+        if (width >= 1024) {
+          slidesPerView = 3;
+        } else if (width >= 640) {
+          slidesPerView = 2;
+        } else {
+          slidesPerView = 1;
+        }
+      }
+      
+      // Update carousel position
+      function updateCarousel() {
+        calculateSlidesPerView();
+        const slideWidth = 100 / slidesPerView;
+        const translateX = -currentIndex * slideWidth;
+        track.style.transform = `translateX(${translateX}%)`;
+        
+        // Update dots
+        dots.forEach((dot, index) => {
+          if (index === currentIndex) {
+            dot.style.backgroundColor = '#D2A63C';
+            dot.style.transform = 'scale(1.2)';
+          } else {
+            dot.style.backgroundColor = '#BB8525';
+            dot.style.transform = 'scale(1)';
+          }
+        });
+      }
+      
+      // Go to next slide (slide one left)
+      function nextSlide() {
+        const maxIndex = slides.length - slidesPerView;
+        currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+        updateCarousel();
+      }
+      
+      // Go to specific slide
+      function goToSlide(index) {
+        currentIndex = index;
+        updateCarousel();
+      }
+      
+      // Start autoplay
+      function startAutoplay() {
+        autoplayInterval = setInterval(nextSlide, 2300); // 2.3 seconds
+      }
+      
+      // Stop autoplay
+      function stopAutoplay() {
+        clearInterval(autoplayInterval);
+      }
+      
+      // Add dot click handlers
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          goToSlide(index);
+          stopAutoplay();
+          startAutoplay(); // Restart autoplay after manual interaction
+        });
+      });
+      
+      // Pause on hover
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', startAutoplay);
+      
+      // Handle window resize
+      window.addEventListener('resize', updateCarousel);
+      
+      // Initialize
+      updateCarousel();
+      startAutoplay();
+    });
+  });
+</script>
+
+<style>
+  .reviews-carousel {
+    --carousel-height: auto;
+  }
+  
+  .review-slide {
+    flex-shrink: 0;
+  }
+  
+  @media (min-width: 640px) {
+    .review-slide {
+      min-width: 50%;
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .review-slide {
+      min-width: 33.333333%;
+    }
+  }
+  
+  .carousel-dot {
+    cursor: pointer;
+  }
+  
+  .carousel-dot:hover {
+    background-color: #D2A63C !important;
+  }
+  
+  /* Smooth transitions */
+  .reviews-track {
+    transition: transform 0.7s ease-in-out;
+  }
+</style>

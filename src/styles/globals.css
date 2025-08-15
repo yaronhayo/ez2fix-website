@@ -1,0 +1,263 @@
+/* Font loaded asynchronously via BaseLayout */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Exact color palette: #1D1912, #BB8525, #F3F3E6, #EECD5C, #D2A63C */
+    --background: #F3F3E6; /* Light cream */
+    --foreground: #1D1912; /* Dark brown */
+    --card: #F3F3E6;
+    --card-foreground: #1D1912;
+    --popover: #F3F3E6;
+    --popover-foreground: #1D1912;
+    --primary: #D2A63C;    /* Brand gold */
+    --primary-foreground: #F3F3E6;
+    --secondary: #BB8525;   /* Medium brown */
+    --secondary-foreground: #F3F3E6;
+    --muted: #BB8525;      /* Medium brown */
+    --muted-foreground: #F3F3E6;
+    --accent: #EECD5C;     /* Bright gold */
+    --accent-foreground: #1D1912;
+    --accent-contrast: #C9941F;  /* Darker gold for better contrast on light backgrounds */
+    --destructive: #D2A63C;
+    --destructive-foreground: #F3F3E6;
+    --border: #BB8525;
+    --input: #F3F3E6;
+    --ring: #D2A63C;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: #1D1912;
+    --foreground: #F3F3E6;
+    --card: #1D1912;
+    --card-foreground: #F3F3E6;
+    --popover: #1D1912;
+    --popover-foreground: #F3F3E6;
+    --primary: #D2A63C;
+    --primary-foreground: #1D1912;
+    --secondary: #BB8525;
+    --secondary-foreground: #F3F3E6;
+    --muted: #BB8525;
+    --muted-foreground: #F3F3E6;
+    --accent: #EECD5C;
+    --accent-foreground: #1D1912;
+    --destructive: #D2A63C;
+    --destructive-foreground: #F3F3E6;
+    --border: #BB8525;
+    --input: #1D1912;
+    --ring: #D2A63C;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-muted;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/30 rounded-md;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/50;
+}
+
+/* Performance Optimizations */
+@layer utilities {
+  /* Prevent layout shift during loading */
+  .loading-optimized {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 500px;
+  }
+
+  /* Critical above-the-fold content */
+  .critical-content {
+    /* Ensure background is immediately visible */
+    background-color: #F3F3E6 !important;
+    /* Optimize rendering */
+    contain: layout style;
+  }
+
+  /* Hero section optimizations */
+  .hero-loading-optimized {
+    /* Immediate fallback background */
+    background: linear-gradient(135deg, #1D1912 0%, #2A2420 100%) !important;
+    /* Optimize for fast rendering */
+    contain: layout style paint;
+  }
+
+  /* Advanced performance optimizations */
+  .perf-optimized-img {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 400px;
+  }
+
+  /* GPU acceleration for animations */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  /* Smooth transitions for media loading */
+  .smooth-media-load {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Preload hint for critical images */
+  img[data-priority="high"] {
+    /* Hint to browser this is important */
+    content-visibility: auto;
+  }
+
+  /* Prevent layout shift for all images */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Aspect ratio containers */
+  .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+
+  .aspect-square {
+    aspect-ratio: 1 / 1;
+  }
+  
+  /* Line clamping utilities for cross-browser support */
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  /* Focus states for accessibility */
+  .focus-visible:focus-visible {
+    @apply outline-none ring-2 ring-offset-2 ring-blue-500;
+  }
+  
+  /* Ensure text doesn't overflow on small screens */
+  .text-responsive {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  /* Safe area for mobile devices with notches */
+  .safe-area-inset {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    * {
+      outline: 1px solid !important;
+    }
+  }
+  
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  /* Touch target minimum size */
+  @media (hover: none) and (pointer: coarse) {
+    button, a, [role="button"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+  }
+  
+  /* Prevent horizontal scroll on small screens */
+  .no-scrollbar-x {
+    overflow-x: hidden;
+  }
+  
+  /* Enhanced accessibility and contrast improvements */
+  .text-accent-contrast {
+    color: var(--accent-contrast);
+  }
+  
+  /* Enhanced focus states for better accessibility */
+  .focus-enhanced:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 4px rgba(210, 166, 60, 0.25);
+  }
+  
+  /* Better touch targets for very small screens */
+  @media (max-width: 360px) {
+    .mobile-touch-enhanced {
+      min-height: 48px !important;
+      min-width: 48px !important;
+      padding: 0.75rem !important;
+    }
+    
+    /* Slightly larger text for readability */
+    .mobile-text-enhanced {
+      font-size: 0.9rem !important;
+      line-height: 1.5 !important;
+    }
+  }
+  
+  /* Skip navigation link for accessibility */
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--primary);
+    color: var(--primary-foreground);
+    padding: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 4px;
+    z-index: 100;
+    transition: top 0.2s;
+  }
+  
+  .skip-link:focus {
+    top: 6px;
+  }
+}

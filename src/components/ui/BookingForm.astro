@@ -1,0 +1,673 @@
+---
+import { siteConfig } from '@/config/site';
+
+export interface Props {
+  variant?: 'hero' | 'inline' | 'modal' | 'service-hero' | 'service-cta' | 'area-hero';
+  showTitle?: boolean;
+  title?: string;
+  subtitle?: string;
+  buttonText?: string;
+  buttonStyle?: string;
+  service?: string;
+  location?: string;
+  theme?: 'light' | 'dark';
+}
+
+const {
+  variant = 'inline',
+  showTitle = true,
+  title = 'Get Your Free Estimate',
+  subtitle = 'Tell us about your garage door issue and we\'ll provide an honest, detailed estimate.',
+  buttonText = 'Get My Free Estimate',
+  buttonStyle = 'background: linear-gradient(135deg, #D2A63C 0%, #EECD5C 100%); color: #1D1912;',
+  service = '',
+  location = '',
+  theme = 'light'
+} = Astro.props;
+
+const serviceAreas = [
+  "Elmwood Park", "Fair Lawn", "Garfield", "Lodi", "Saddle Brook",
+  "Wallington", "Wood-Ridge", "Carlstadt", "East Rutherford", 
+  "Hasbrouck Heights", "Little Ferry", "Moonachie", "Rutherford", "Teterboro"
+];
+
+const services = [
+  "Spring Replacement", "Opener Repair", "New Door Installation", 
+  "Cable & Track Repair", "Maintenance Service", "Safety Inspection"
+];
+
+const formClasses = {
+  hero: 'space-y-3',
+  inline: 'space-y-4',
+  modal: 'space-y-3',
+  'service-hero': 'space-y-4',
+  'service-cta': 'space-y-4',
+  'area-hero': 'space-y-4'
+};
+
+const inputClasses = {
+  hero: 'w-full px-3 py-2 text-sm rounded-lg border-2 focus:outline-none focus:border-opacity-100 transition-colors',
+  inline: 'w-full px-4 py-3 text-base rounded-lg border-2 focus:outline-none focus:border-opacity-100 transition-colors',
+  modal: 'w-full px-3 py-2 text-base rounded-lg border-2 focus:outline-none focus:border-opacity-100 transition-colors',
+  'service-hero': 'w-full px-4 py-3 text-base rounded-lg border-2 focus:outline-none focus:border-opacity-100 transition-colors',
+  'service-cta': 'w-full px-4 py-3 text-base rounded-lg border-2 focus:outline-none focus:border-opacity-100 transition-colors',
+  'area-hero': 'w-full px-4 py-3 text-base rounded-lg border-2 focus:outline-none focus:border-opacity-100 transition-colors'
+};
+
+const buttonClasses = {
+  hero: 'w-full py-2 px-3 text-sm font-bold rounded-lg transition-all duration-300 hover:shadow-lg',
+  inline: 'w-full py-4 px-6 text-lg font-bold rounded-lg transition-all duration-300 hover:shadow-lg transform hover:scale-105',
+  modal: 'w-full py-3 px-6 text-base font-bold rounded-lg transition-all duration-300 hover:shadow-lg',
+  'service-hero': 'w-full py-3 px-6 text-lg font-bold rounded-lg transition-all duration-300 hover:shadow-lg',
+  'service-cta': 'w-full py-3 px-6 text-base font-bold rounded-lg transition-all duration-300 hover:shadow-lg',
+  'area-hero': 'w-full py-3 px-6 text-lg font-bold rounded-lg transition-all duration-300 hover:shadow-lg'
+};
+---
+
+<div class="booking-form-container">
+  {showTitle && (
+    <div class={variant === 'hero' ? 'mb-3' : 'mb-6'}>
+      <h3 class={variant === 'hero' ? 'text-base md:text-lg font-bold mb-1' : 'text-xl md:text-2xl lg:text-3xl font-bold mb-3'} style="color: #1D1912;">
+        {title}
+      </h3>
+      {subtitle && (
+        <p class={variant === 'hero' ? 'text-xs leading-tight' : 'text-base md:text-lg'} style="color: #BB8525;">
+          {subtitle}
+        </p>
+      )}
+    </div>
+  )}
+  
+  <form class={formClasses[variant]} id="booking-form" data-variant={variant}>
+    <!-- Name -->
+    <div>
+      <label for={`name-${variant}`} class={variant === 'hero' ? 'block text-xs font-semibold mb-1' : 'block text-sm font-semibold mb-2'} style="color: #1D1912;">Your Name*</label>
+      <input 
+        type="text" 
+        id={`name-${variant}`}
+        name="name" 
+        required
+        aria-describedby={`name-error-${variant}`}
+        class={inputClasses[variant]}
+        style="border-color: #EECD5C; background-color: white;"
+        placeholder="Enter your full name"
+      />
+      <div id={`name-error-${variant}`} class="text-red-600 text-xs mt-1 hidden" role="alert"></div>
+    </div>
+
+    <!-- Phone -->
+    <div>
+      <label for={`phone-${variant}`} class={variant === 'hero' ? 'block text-xs font-semibold mb-1' : 'block text-sm font-semibold mb-2'} style="color: #1D1912;">Phone Number*</label>
+      <input 
+        type="tel" 
+        id={`phone-${variant}`}
+        name="phone" 
+        required
+        aria-describedby={`phone-error-${variant}`}
+        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+        class={inputClasses[variant]}
+        style="border-color: #EECD5C; background-color: white;"
+        placeholder={siteConfig.business.phone}
+      />
+      <div id={`phone-error-${variant}`} class="text-red-600 text-xs mt-1 hidden" role="alert"></div>
+    </div>
+
+    {variant !== 'modal' && (
+      <!-- Email for hero and inline forms -->
+      <div>
+        <label for={`email-${variant}`} class={variant === 'hero' ? 'block text-xs font-semibold mb-1' : 'block text-sm font-semibold mb-2'} style="color: #1D1912;">Email Address</label>
+        <input 
+          type="email" 
+          id={`email-${variant}`}
+          name="email"
+          aria-describedby={`email-error-${variant}`}
+          class={inputClasses[variant]}
+          style="border-color: #EECD5C; background-color: white;"
+          placeholder="your.email@example.com"
+        />
+        <div id={`email-error-${variant}`} class="text-red-600 text-xs mt-1 hidden" role="alert"></div>
+      </div>
+    )}
+
+    <!-- Service Address -->
+    <div>
+      <label for={`street-${variant}`} class={variant === 'hero' ? 'block text-xs font-semibold mb-1' : 'block text-sm font-semibold mb-2'} style="color: #1D1912;">Service Address*</label>
+      
+      <!-- Street Address with Autocomplete -->
+      <div class="mb-2">
+        <input 
+          type="text" 
+          id={`street-${variant}`}
+          name="street" 
+          required
+          aria-describedby={`street-error-${variant}`}
+          class={inputClasses[variant]}
+          style="border-color: #EECD5C; background-color: white;"
+          placeholder="Enter street address"
+          autocomplete="address-line1"
+        />
+        <div id={`street-error-${variant}`} class="text-red-600 text-xs mt-1 hidden" role="alert"></div>
+      </div>
+      
+      <!-- City, State, Zip Row -->
+      <div class={variant === 'hero' ? 'grid grid-cols-2 gap-2' : 'grid grid-cols-3 gap-3'}>
+        <div>
+          <input 
+            type="text" 
+            id={`city-${variant}`}
+            name="city" 
+            required
+            aria-describedby={`city-error-${variant}`}
+            class={inputClasses[variant]}
+            style="border-color: #EECD5C; background-color: white;"
+            placeholder="City"
+            autocomplete="address-level2"
+          />
+          <div id={`city-error-${variant}`} class="text-red-600 text-xs mt-1 hidden" role="alert"></div>
+        </div>
+        
+        <div>
+          <input 
+            type="text" 
+            id={`state-${variant}`}
+            name="state" 
+            required
+            aria-describedby={`state-error-${variant}`}
+            class={inputClasses[variant]}
+            style="border-color: #EECD5C; background-color: white;"
+            placeholder="State"
+            autocomplete="address-level1"
+            value="NJ"
+            readonly
+          />
+          <div id={`state-error-${variant}`} class="text-red-600 text-xs mt-1 hidden" role="alert"></div>
+        </div>
+        
+        {variant !== 'hero' && (
+          <div>
+            <input 
+              type="text" 
+              id={`zip-${variant}`}
+              name="zip" 
+              required
+              aria-describedby={`zip-error-${variant}`}
+              class={inputClasses[variant]}
+              style="border-color: #EECD5C; background-color: white;"
+              placeholder="Zip Code"
+              autocomplete="postal-code"
+              pattern="[0-9]{5}(-[0-9]{4})?"
+            />
+            <div id={`zip-error-${variant}`} class="text-red-600 text-xs mt-1 hidden" role="alert"></div>
+          </div>
+        )}
+      </div>
+      
+      {variant === 'hero' && (
+        <div class="mt-2">
+          <input 
+            type="text" 
+            id={`zip-${variant}`}
+            name="zip" 
+            required
+            aria-describedby={`zip-error-${variant}`}
+            class={inputClasses[variant]}
+            style="border-color: #EECD5C; background-color: white;"
+            placeholder="Zip Code"
+            autocomplete="postal-code"
+            pattern="[0-9]{5}(-[0-9]{4})?"
+          />
+          <div id={`zip-error-${variant}`} class="text-red-600 text-xs mt-1 hidden" role="alert"></div>
+        </div>
+      )}
+    </div>
+
+    <!-- Service Type -->
+    <div>
+      <label for={`service-${variant}`} class={variant === 'hero' ? 'block text-xs font-semibold mb-1' : 'block text-sm font-semibold mb-2'} style="color: #1D1912;">Service Needed*</label>
+      <select 
+        id={`service-${variant}`}
+        name="service" 
+        required
+        aria-describedby={`service-error-${variant}`}
+        class={inputClasses[variant]}
+        style="border-color: #EECD5C; background-color: white;"
+      >
+        <option value="">What can we help with?</option>
+        {services.map(serviceOption => (
+          <option value={serviceOption} selected={service === serviceOption}>{serviceOption}</option>
+        ))}
+        <option value="Not Sure" selected={service === "Not Sure"}>Not Sure - Need Diagnosis</option>
+        {service && !services.includes(service) && service !== "Not Sure" && (
+          <option value={service} selected={true}>{service}</option>
+        )}
+      </select>
+      <div id={`service-error-${variant}`} class="text-red-600 text-xs mt-1 hidden" role="alert"></div>
+    </div>
+
+    <!-- Urgency -->
+    {variant !== 'hero' && (
+      <div>
+        <label for={`urgency-${variant}`} class="block text-sm font-semibold mb-2" style="color: #1D1912;">When do you need service?*</label>
+        <select 
+          id={`urgency-${variant}`}
+          name="urgency" 
+          required
+          aria-describedby={`urgency-error-${variant}`}
+          class={inputClasses[variant]}
+          style="border-color: #EECD5C; background-color: white;"
+        >
+          <option value="">Select timeframe...</option>
+          <option value="same-day">Same Day (Emergency)</option>
+          <option value="next-day">Within 24 Hours</option>
+          <option value="flexible">Within a Few Days</option>
+        </select>
+        <div id={`urgency-error-${variant}`} class="text-red-600 text-xs mt-1 hidden" role="alert"></div>
+      </div>
+    )}
+
+    <!-- Description -->
+    {variant !== 'hero' && (
+      <div>
+        <label for={`description-${variant}`} class="block text-sm font-semibold mb-2" style="color: #1D1912;">Tell us about the problem</label>
+        <textarea 
+          id={`description-${variant}`}
+          name="description" 
+          aria-describedby={`description-error-${variant}`}
+          class={inputClasses[variant]}
+          style="border-color: #EECD5C; background-color: white; min-height: 80px; resize: vertical;"
+          placeholder="Describe what's happening with your garage door (optional but helpful)"
+        ></textarea>
+        <div id={`description-error-${variant}`} class="text-red-600 text-xs mt-1 hidden" role="alert"></div>
+      </div>
+    )}
+
+    <!-- Consent Checkbox -->
+    <div>
+      <div class="flex items-start space-x-2">
+        <input 
+          type="checkbox" 
+          id={`consent-${variant}`}
+          name="consent" 
+          required
+          aria-describedby={`consent-error-${variant}`}
+          class="mt-0.5 h-4 w-4 rounded border-2 focus:outline-none focus:ring-2 focus:ring-offset-1"
+          style="border-color: #EECD5C; background-color: white; color: #D2A63C; focus:ring-color: #D2A63C;"
+        />
+        <label for={`consent-${variant}`} class={variant === 'hero' ? 'text-xs leading-tight' : 'text-sm leading-relaxed'} style="color: #1D1912;">
+          I agree to receive service updates via call, text, or email, and I accept the 
+          <a href="/privacy-policy" class="underline hover:no-underline" style="color: #D2A63C;" target="_blank">Privacy Policy</a> and 
+          <a href="/terms-of-service" class="underline hover:no-underline" style="color: #D2A63C;" target="_blank">Terms & Conditions</a>.*
+        </label>
+      </div>
+      <div id={`consent-error-${variant}`} class="text-red-600 text-xs mt-1 hidden" role="alert"></div>
+    </div>
+
+    <!-- Submit Button -->
+    <button 
+      type="submit"
+      class={buttonClasses[variant]}
+      style={buttonStyle}
+    >
+      {buttonText}
+    </button>
+    
+    {variant !== 'modal' && (
+      <p class={variant === 'hero' ? 'text-xs text-center mt-2' : 'text-xs text-center mt-3'} style="color: #BB8525;">
+        * Required fields. We respect your privacy and never share your information.
+      </p>
+    )}
+  </form>
+</div>
+
+<!-- Google Places API - Deferred for performance -->
+<script>
+  // Load Google Places API only when form is interacted with
+  let placesApiLoaded = false;
+  let recaptchaLoaded = false;
+  
+  function loadPlacesAPI() {
+    if (placesApiLoaded) return;
+    placesApiLoaded = true;
+    
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.PUBLIC_GOOGLE_PLACES_API_KEY}&libraries=places&callback=initAutocomplete`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+  
+  function loadRecaptcha() {
+    if (recaptchaLoaded) return;
+    recaptchaLoaded = true;
+    
+    const script = document.createElement('script');
+    script.src = `https://www.google.com/recaptcha/api.js?render=${import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY}`;
+    document.head.appendChild(script);
+  }
+  
+  // Load APIs on first form interaction
+  document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('#booking-form');
+    forms.forEach(form => {
+      const inputs = form.querySelectorAll('input, select, textarea');
+      inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+          loadPlacesAPI();
+          loadRecaptcha();
+        }, { once: true });
+      });
+    });
+    
+    // Also load on form container hover for desktop
+    if (!('ontouchstart' in window)) {
+      forms.forEach(form => {
+        form.addEventListener('mouseenter', function() {
+          loadPlacesAPI();
+          loadRecaptcha();
+        }, { once: true });
+      });
+    }
+  });
+</script>
+
+<!-- Environment Variables for Client-side -->
+<script define:vars={{ recaptchaKey: import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY }}>
+  window.RECAPTCHA_SITE_KEY = recaptchaKey || '';
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const forms = document.querySelectorAll('#booking-form');
+    
+    // Phone number formatting
+    function formatPhoneNumber(input) {
+      const value = input.value.replace(/\D/g, '');
+      const formattedValue = value.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+      if (value.length >= 6) {
+        input.value = formattedValue;
+      }
+    }
+    
+    // Email validation
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+    
+    // Show error message
+    function showError(fieldName, message, variant) {
+      const errorElement = document.getElementById(`${fieldName}-error-${variant}`);
+      const inputElement = document.getElementById(`${fieldName}-${variant}`);
+      
+      if (errorElement && inputElement) {
+        errorElement.textContent = message;
+        errorElement.classList.remove('hidden');
+        inputElement.style.borderColor = '#ef4444';
+        inputElement.setAttribute('aria-invalid', 'true');
+      }
+    }
+    
+    // Hide error message
+    function hideError(fieldName, variant) {
+      const errorElement = document.getElementById(`${fieldName}-error-${variant}`);
+      const inputElement = document.getElementById(`${fieldName}-${variant}`);
+      
+      if (errorElement && inputElement) {
+        errorElement.classList.add('hidden');
+        inputElement.style.borderColor = '#EECD5C';
+        inputElement.removeAttribute('aria-invalid');
+      }
+    }
+    
+    forms.forEach(form => {
+      const variant = form.dataset.variant;
+      
+      // Add real-time phone formatting
+      const phoneInput = form.querySelector(`#phone-${variant}`);
+      if (phoneInput) {
+        phoneInput.addEventListener('input', function() {
+          formatPhoneNumber(this);
+          if (this.value.length > 0) {
+            hideError('phone', variant);
+          }
+        });
+      }
+      
+      // Add real-time validation for other fields
+      const validationFields = ['name', 'email', 'street', 'city', 'zip', 'service', 'consent'];
+      if (variant !== 'hero') validationFields.push('urgency', 'description');
+      validationFields.forEach(field => {
+        const input = form.querySelector(`#${field}-${variant}`);
+        if (input) {
+          input.addEventListener('blur', function() {
+            if (field === 'consent') {
+              if (this.hasAttribute('required') && !this.checked) {
+                showError(field, 'Please agree to the privacy policy and terms to proceed.', variant);
+              } else {
+                hideError(field, variant);
+              }
+            } else if (this.hasAttribute('required') && !this.value.trim()) {
+              showError(field, 'This field is required.', variant);
+            } else if (field === 'email' && this.value && !isValidEmail(this.value)) {
+              showError(field, 'Please enter a valid email address.', variant);
+            } else {
+              hideError(field, variant);
+            }
+          });
+          
+          input.addEventListener('input', function() {
+            if (field === 'consent') {
+              if (this.checked) {
+                hideError(field, variant);
+              }
+            } else if (this.value.length > 0) {
+              hideError(field, variant);
+            }
+          });
+        }
+      });
+      
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+        let hasErrors = false;
+        
+        // Clear previous errors
+        const fieldsToValidate = ['name', 'phone', 'email', 'street', 'city', 'zip', 'service', 'consent'];
+        if (variant !== 'hero') fieldsToValidate.push('urgency', 'description');
+        fieldsToValidate.forEach(field => {
+          hideError(field, variant);
+        });
+        
+        // Validate required fields
+        if (!data.name?.trim()) {
+          showError('name', 'Please enter your full name.', variant);
+          hasErrors = true;
+        }
+        
+        if (!data.phone?.trim()) {
+          showError('phone', 'Please enter your phone number.', variant);
+          hasErrors = true;
+        } else if (!/^\d{3}-\d{3}-\d{4}$/.test(data.phone.trim())) {
+          showError('phone', 'Please enter a valid phone number (XXX-XXX-XXXX).', variant);
+          hasErrors = true;
+        }
+        
+        if (!data.street?.trim()) {
+          showError('street', 'Please enter your street address.', variant);
+          hasErrors = true;
+        }
+        
+        if (!data.city?.trim()) {
+          showError('city', 'Please enter your city.', variant);
+          hasErrors = true;
+        }
+        
+        if (!data.zip?.trim()) {
+          showError('zip', 'Please enter your zip code.', variant);
+          hasErrors = true;
+        } else if (!/^\d{5}(-\d{4})?$/.test(data.zip.trim())) {
+          showError('zip', 'Please enter a valid zip code.', variant);
+          hasErrors = true;
+        }
+        
+        if (!data.service) {
+          showError('service', 'Please select the service you need.', variant);
+          hasErrors = true;
+        }
+        
+        // Validate urgency for non-hero forms
+        if (variant !== 'hero' && !data.urgency) {
+          showError('urgency', 'Please select when you need service.', variant);
+          hasErrors = true;
+        }
+        
+        // Validate email if provided
+        if (data.email && !isValidEmail(data.email)) {
+          showError('email', 'Please enter a valid email address.', variant);
+          hasErrors = true;
+        }
+        
+        // Validate consent checkbox
+        if (!data.consent) {
+          showError('consent', 'Please agree to the privacy policy and terms to proceed.', variant);
+          hasErrors = true;
+        }
+        
+        if (hasErrors) {
+          // Focus on first error field
+          const firstError = form.querySelector('[aria-invalid="true"]');
+          if (firstError) {
+            firstError.focus();
+          }
+          return;
+        }
+        
+        // Show loading state with spinner
+        const button = form.querySelector('button[type="submit"]');
+        const originalText = button.textContent;
+        button.innerHTML = `
+          <svg class="animate-spin -ml-1 mr-3 h-4 w-4 text-current inline" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="m100 50c0 27.614-22.386 50-50 50s-50-22.386-50-50 22.386-50 50-50 50 22.386 50 50zm-5.147 0c0 24.891-20.076 45.147-45.147 45.147s-45.147-20.256-45.147-45.147 20.076-45.147 45.147-45.147 45.147 20.256 45.147 45.147z"></path>
+          </svg>
+          Submitting...
+        `;
+        button.disabled = true;
+        button.style.opacity = '0.7';
+        
+        // Get reCAPTCHA token
+        grecaptcha.ready(function() {
+          grecaptcha.execute(window.RECAPTCHA_SITE_KEY, {action: 'booking_form'}).then(function(token) {
+            // Prepare form data with address
+            const address = `${data.street.trim()}, ${data.city.trim()}, ${data.state || 'NJ'} ${data.zip.trim()}`;
+            
+            const submissionData = {
+              name: data.name.trim(),
+              email: data.email?.trim() || '',
+              phone: data.phone.trim(),
+              address: address,
+              service: data.service,
+              urgency: data.urgency || 'flexible',
+              description: data.description?.trim() || `Service requested: ${data.service}. Customer location: ${address}`,
+              recaptchaToken: token
+            };
+            
+            // Submit to API
+            fetch('/api/booking', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(submissionData)
+            })
+            .then(response => response.json())
+            .then(result => {
+              if (result.success) {
+                // Redirect to thank you page
+                window.location.href = '/thank-you';
+              } else {
+                // Show error
+                console.error('Submission failed:', result.error);
+                alert('Sorry, there was an error submitting your request. Please try again or call us directly.');
+                
+                // Reset button
+                button.textContent = originalText;
+                button.disabled = false;
+                button.style.opacity = '1';
+              }
+            })
+            .catch(error => {
+              console.error('Submission error:', error);
+              alert('Sorry, there was a network error. Please try again or call us directly.');
+              
+              // Reset button
+              button.textContent = originalText;
+              button.disabled = false;
+              button.style.opacity = '1';
+            });
+          });
+        });
+      });
+    });
+  });
+  
+  // Global function for Google Places API callback
+  window.initAutocomplete = function() {
+    // Initialize autocomplete for all street address inputs
+    const streetInputs = document.querySelectorAll('input[name="street"]');
+    
+    streetInputs.forEach(input => {
+      const variant = input.id.split('-').pop();
+      const autocomplete = new google.maps.places.Autocomplete(input, {
+        types: ['address'],
+        componentRestrictions: { country: 'us' },
+        fields: ['address_components', 'formatted_address']
+      });
+      
+      autocomplete.addListener('place_changed', function() {
+        const place = autocomplete.getPlace();
+        
+        if (place.address_components) {
+          // Parse address components
+          let street = '';
+          let city = '';
+          let state = '';
+          let zip = '';
+          
+          place.address_components.forEach(component => {
+            const types = component.types;
+            
+            if (types.includes('street_number')) {
+              street = component.long_name + ' ';
+            } else if (types.includes('route')) {
+              street += component.long_name;
+            } else if (types.includes('locality')) {
+              city = component.long_name;
+            } else if (types.includes('administrative_area_level_1')) {
+              state = component.short_name;
+            } else if (types.includes('postal_code')) {
+              zip = component.long_name;
+            }
+          });
+          
+          // Fill in the form fields
+          const cityInput = document.getElementById(`city-${variant}`);
+          const stateInput = document.getElementById(`state-${variant}`);
+          const zipInput = document.getElementById(`zip-${variant}`);
+          
+          if (city && cityInput) cityInput.value = city;
+          if (state && stateInput) stateInput.value = state;
+          if (zip && zipInput) zipInput.value = zip;
+          
+          // Clear any validation errors
+          ['street', 'city', 'zip'].forEach(field => {
+            hideError(field, variant);
+          });
+        }
+      });
+    });
+  };
+</script>

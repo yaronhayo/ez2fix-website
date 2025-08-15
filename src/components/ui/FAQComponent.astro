@@ -1,0 +1,97 @@
+---
+export interface Props {
+  faqs: Array<{
+    question: string;
+    answer: string;
+  }>;
+  city?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+const { 
+  faqs, 
+  city = "your area", 
+  title = `Common Questions About Our Service`,
+  subtitle = "We believe in transparency. Here are answers to questions homeowners frequently ask about our garage door services."
+} = Astro.props;
+---
+
+<div class="max-w-4xl mx-auto">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6" style="color: #1D1912;">
+      <Fragment set:html={title} />
+    </h2>
+    <p class="text-xl" style="color: #BB8525;">
+      <Fragment set:html={subtitle} />
+    </p>
+  </div>
+  
+  <!-- FAQ Grid -->
+  <div class="grid grid-cols-1 gap-6">
+    {faqs.map((faq, index) => (
+      <div class="faq-item border-2 rounded-xl overflow-hidden transition-all duration-300 hover:shadow-lg" style="border-color: #BB8525;">
+        <button 
+          class="faq-question w-full text-left p-6 flex items-center justify-between focus:outline-none"
+          style="background-color: #F3F3E6;"
+          onclick={`toggleFAQ(${index})`}
+        >
+          <h3 class="text-lg font-bold pr-4" style="color: #1D1912;">
+            {faq.question}
+          </h3>
+          <svg 
+            class="faq-icon h-6 w-6 transform transition-transform duration-300 flex-shrink-0" 
+            style="color: #D2A63C;" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+          </svg>
+        </button>
+        <div class="faq-answer max-h-0 overflow-hidden transition-all duration-300" style="background-color: white;">
+          <div class="p-6 pt-0">
+            <p class="leading-relaxed" style="color: #BB8525;">
+              {faq.answer}
+            </p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  function toggleFAQ(index) {
+    const faqItem = document.querySelectorAll('.faq-item')[index];
+    const answer = faqItem.querySelector('.faq-answer');
+    const icon = faqItem.querySelector('.faq-icon');
+    
+    const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+    
+    // Close all FAQs
+    document.querySelectorAll('.faq-answer').forEach((item, i) => {
+      item.style.maxHeight = '0px';
+      document.querySelectorAll('.faq-icon')[i].style.transform = 'rotate(0deg)';
+    });
+    
+    // Open clicked FAQ if it wasn't open
+    if (!isOpen) {
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+      icon.style.transform = 'rotate(180deg)';
+    }
+  }
+  
+  // Make function globally available
+  window.toggleFAQ = toggleFAQ;
+</script>
+
+<style>
+  .faq-item:hover {
+    border-color: #D2A63C;
+  }
+  
+  .faq-question:hover {
+    background-color: rgba(238, 205, 92, 0.1) !important;
+  }
+</style>

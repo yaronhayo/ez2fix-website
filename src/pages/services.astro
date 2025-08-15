@@ -1,0 +1,138 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/layout/Header.astro';
+import Footer from '@/components/layout/Footer.astro';
+import ServicesHero from '@/components/sections/ServicesHero.astro';
+import ServiceShowcase from '@/components/sections/ServiceShowcase.astro';
+import ProblemSolver from '@/components/sections/ProblemSolver.astro';
+import FAQComponent from '@/components/ui/FAQComponent.astro';
+import ReviewsCarousel from '@/components/ui/ReviewsCarousel.astro';
+import CTASection from '@/components/ui/CTASection.astro';
+---
+
+<BaseLayout 
+  title="Professional Garage Door Services Bergen County NJ | Ez2Fix | Licensed Contractor"
+  description="Complete garage door services in Bergen & Hudson Counties: emergency repair, spring replacement, opener installation, new door installation. Licensed contractor #13VH13553300 with 10-year warranty. 24/7 emergency service. Call (201) 554-6769!"
+  keywords="garage door services bergen county nj, garage door repair services, garage door spring repair nj, garage door opener installation bergen county, new garage door installation nj, emergency garage door service, commercial garage door service bergen county, garage door maintenance nj, licensed garage door contractor bergen county, garage door service elmwood park fair lawn clifton"
+>
+  <Fragment slot="head">
+    <!-- Services-specific Schema Markup -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "@id": "https://ez2fix.com/services#services",
+      "name": "Professional Garage Door Services",
+      "description": "Complete garage door services including emergency repair, spring replacement, opener installation, and new door installation in Bergen & Hudson Counties, NJ.",
+      "serviceType": [
+        "Emergency Garage Door Repair",
+        "Garage Door Spring Repair", 
+        "Garage Door Opener Installation",
+        "New Garage Door Installation",
+        "Commercial Garage Door Service",
+        "Garage Door Maintenance"
+      ],
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Ez2Fix Garage Door Services",
+        "telephone": "(201) 554-6769",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Elmwood Park, NJ 07407",
+          "addressLocality": "Elmwood Park",
+          "addressRegion": "NJ",
+          "postalCode": "07407",
+          "addressCountry": "US"
+        }
+      },
+      "areaServed": [
+        "Bergen County, NJ",
+        "Hudson County, NJ", 
+        "Elmwood Park, NJ",
+        "Fair Lawn, NJ",
+        "Clifton, NJ",
+        "Paramus, NJ",
+        "Hackensack, NJ"
+      ],
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "servicePhone": "+12015546769",
+        "serviceUrl": "https://ez2fix.com/services"
+      }
+    })} />
+  </Fragment>
+  
+  
+  <!-- Main Content (hidden initially) -->
+
+    <Header />
+  <main id="main-content">
+    <ServicesHero />
+    <div class="py-8"></div>
+    <ServiceShowcase />
+    <div class="py-8"></div>
+    <ProblemSolver />
+    <div class="py-8"></div>
+    <FAQComponent 
+      faqs={[
+        {
+          question: "What do you do when neighbors call with garage door problems?",
+          answer: "We treat every call like it's coming from family. Whether it's a spring that snapped at midnight, a door that won't close leaving your home vulnerable, or an opener that died in a storm - we bring everything needed to fix it right the first time. From emergency repairs to beautiful new installations, we're here for whatever your family needs."
+        },
+        {
+          question: "How fast will you come when our garage door breaks?",
+          answer: "We know how stressful it is when your door breaks - you can't get to work, your home isn't secure, or you're worried about safety. That's why we prioritize getting to you as quickly as possible. When you call, you're not just another appointment - you're a neighbor who needs help, and we'll be there."
+        },
+        {
+          question: "Will I get surprised by hidden costs after you arrive?",
+          answer: "Never. We understand you're already stressed about the broken door - the last thing you need is surprise charges. Before we touch anything, we'll show you exactly what's wrong, explain your options in plain English, and give you honest upfront pricing. No surprises, no pressure, just straight answers."
+        },
+        {
+          question: "What if something goes wrong after you fix my door?",
+          answer: "We stand behind our work with a 10-year warranty because we use premium parts and expert installation. But more than that - we're your neighbors. If you ever have concerns, just call. We want you to feel completely confident that your family is safe and your door will work perfectly for years to come."
+        },
+        {
+          question: "What if you can't fix my specific garage door brand?",
+          answer: "In 15+ years serving Northern NJ families, we've never met a garage door we couldn't fix. Whether it's a LiftMaster, Chamberlain, Genie, or that old door from 1985 that 'no one makes parts for anymore' - we find a way. Our trucks are stocked with parts for every major brand, and if we don't have it, we'll get it."
+        },
+        {
+          question: "Can I just fix the broken spring myself to save money?",
+          answer: "Please don't risk it. These springs hold 400+ pounds of tension - we've seen too many neighbors get seriously hurt trying DIY repairs. Your safety and your family's peace of mind are worth more than saving a few dollars. We'll fix it safely, quickly, and with a warranty that protects you for 10 years."
+        }
+      ]}
+      title="Questions <span style='color: #D2A63C;'>Your Neighbors</span> Always Ask"
+      subtitle="When garage doors break, the same worries come up every time. Here's what other families in your neighborhood wanted to know - <span style='font-weight: 700; color: #D2A63C;'>and our honest answers</span>."
+    />
+    <div class="py-8"></div>
+    <section class="py-16" style="background-color: #F3F3E6;">
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-12">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6" style="color: #1D1912;">
+              Service <span style="color: #D2A63C;">Success Stories</span>
+            </h2>
+            <p class="text-xl max-w-3xl mx-auto leading-relaxed mb-8" style="color: #BB8525;">
+              Real customers sharing their experiences with our professional garage door services.
+            </p>
+          </div>
+          
+          <ReviewsCarousel pageType="services" />
+          
+          <div class="text-center mt-8">
+            <a 
+              href="/reviews"
+              class="inline-flex items-center justify-center px-8 py-3 text-lg font-semibold border-2 rounded-lg transition-all duration-300 hover:shadow-lg"
+              style="color: #D2A63C; border-color: #D2A63C; background-color: transparent;"
+            >
+              View All Reviews
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="py-8"></div>
+    <CTASection variant="services" />
+  </main>
+  <Footer />
+  </div>
+  
+</BaseLayout>
