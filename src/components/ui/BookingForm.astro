@@ -406,7 +406,7 @@ const buttonClasses = {
       }
     }
     
-    // Hide error message
+    // Hide error message - make globally available
     function hideError(fieldName, variant) {
       const errorElement = document.getElementById(`${fieldName}-error-${variant}`);
       const inputElement = document.getElementById(`${fieldName}-${variant}`);
@@ -417,6 +417,10 @@ const buttonClasses = {
         inputElement.removeAttribute('aria-invalid');
       }
     }
+    
+    // Make functions globally accessible for Google Places callback
+    window.formHelpers = window.formHelpers || {};
+    window.formHelpers.hideError = hideError;
     
     forms.forEach(form => {
       const variant = form.dataset.variant;
@@ -559,8 +563,18 @@ const buttonClasses = {
         button.style.opacity = '0.7';
         
         // Get reCAPTCHA token
+        if (typeof grecaptcha === 'undefined' || !window.RECAPTCHA_SITE_KEY) {
+          console.error('reCAPTCHA not loaded or site key missing');
+          alert('Security verification is not available. Please try again later or call us directly.');
+          button.textContent = originalText;
+          button.disabled = false;
+          button.style.opacity = '1';
+          return;
+        }
+        
         grecaptcha.ready(function() {
           grecaptcha.execute(window.RECAPTCHA_SITE_KEY, {action: 'booking_form'}).then(function(token) {
+            console.log('reCAPTCHA token obtained:', token ? 'Yes' : 'No');
             // Prepare form data with address
             const address = `${data.street.trim()}, ${data.city.trim()}, ${data.state || 'NJ'} ${data.zip.trim()}`;
             
@@ -571,7 +585,7 @@ const buttonClasses = {
               address: address,
               service: data.service,
               urgency: data.urgency || 'flexible',
-              description: data.description?.trim() || `Service requested: ${data.service}. Customer location: ${address}`,
+              description: data.description?.trim() || `Service requested: ${data.service}. Customer location: ${address}. ${variant === 'hero' ? 'Urgent service needed.' : ''}`.trim(),
               recaptchaToken: token
             };
             
@@ -583,7 +597,24 @@ const buttonClasses = {
               },
               body: JSON.stringify(submissionData)
             })
-            .then(response => response.json())
+            .then(response => {
+              console.log('Response status:', response.status);
+              console.log('Response headers:', response.headers.get('content-type'));
+              
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              
+              const contentType = response.headers.get('content-type');
+              if (!contentType || !contentType.includes('application/json')) {
+                return response.text().then(text => {
+                  console.error('Non-JSON response received:', text.substring(0, 200));
+                  throw new Error('Server returned non-JSON response');
+                });
+              }
+              
+              return response.json();
+            })
             .then(result => {
               if (result.success) {
                 // Redirect to thank you page
@@ -664,7 +695,9 @@ const buttonClasses = {
           
           // Clear any validation errors
           ['street', 'city', 'zip'].forEach(field => {
-            hideError(field, variant);
+            if (window.formHelpers && typeof window.formHelpers.hideError === 'function') {
+              window.formHelpers.hideError(field, variant);
+            }
           });
         }
       });

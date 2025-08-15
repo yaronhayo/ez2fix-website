@@ -12,7 +12,7 @@ export const POST: APIRoute = async ({ request }) => {
     // Validate required fields
     const { name, email, phone, address, service, urgency, description, recaptchaToken } = body;
     
-    if (!name || !email || !phone || !address || !service || !urgency || !description || !recaptchaToken) {
+    if (!name || !phone || !address || !service || !recaptchaToken) {
       return new Response(
         JSON.stringify({ 
           success: false, 
@@ -70,9 +70,9 @@ export const POST: APIRoute = async ({ request }) => {
       recaptchaToken,
     };
 
-    // Validate email format
+    // Validate email format (only if email is provided)
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(bookingData.email)) {
+    if (bookingData.email && !emailRegex.test(bookingData.email)) {
       return new Response(
         JSON.stringify({ 
           success: false, 
