@@ -329,8 +329,16 @@ const buttonClasses = {
     if (placesApiLoaded) return;
     placesApiLoaded = true;
     
+    const apiKey = window.GOOGLE_PLACES_API_KEY;
+    console.log('Loading Google Places API with key:', apiKey ? 'Found' : 'Missing');
+    
+    if (!apiKey) {
+      console.error('Google Places API key not found. Address autocomplete will not work.');
+      return;
+    }
+    
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.PUBLIC_GOOGLE_PLACES_API_KEY}&libraries=places&callback=initAutocomplete`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=initAutocomplete`;
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);
@@ -371,8 +379,12 @@ const buttonClasses = {
 </script>
 
 <!-- Environment Variables for Client-side -->
-<script define:vars={{ recaptchaKey: import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY }}>
+<script define:vars={{ 
+  recaptchaKey: import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY,
+  googlePlacesKey: import.meta.env.PUBLIC_GOOGLE_PLACES_API_KEY 
+}}>
   window.RECAPTCHA_SITE_KEY = recaptchaKey || '';
+  window.GOOGLE_PLACES_API_KEY = googlePlacesKey || '';
 </script>
 
 <script>
